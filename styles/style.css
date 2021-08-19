@@ -1,0 +1,75 @@
+
+body {
+    margin: 0; /* stretches out to fill entire screen */
+    font-family: 'Roboto', serif;
+}
+
+.homecontainer {        /* how to stretch sidebar and main to full length? */
+    display: grid;
+    grid-template-columns: 300px 1fr;
+
+}
+
+.sidebar {
+    display: grid;
+    grid-template-rows: 70px 70px 70px 1fr;
+    background-color: lightyellow;
+    height: 750px;
+}
+
+.main {
+    display: grid;
+    background-color: lightgreen;
+    height: 750px;
+}
+
+.apptitle {
+    grid-row: 1;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    /* padding: 15px 15px; */
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 26px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
+.projectheader {
+    grid-row: 3;
+    border-bottom: 1px solid grey;
+    /* border: 1px solid grey; */
+    color: black;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 26px;
+    /* border-radius: 10px; */
+    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+
+}
+
+.newprojectbutton {
+    float: right;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    font-size: 36px;
+
+
+}
