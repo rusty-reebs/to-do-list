@@ -18,7 +18,7 @@ const renderHome = () => {
 
     const appTitle = document.createElement("div");
     appTitle.classList.add("apptitle");
-    appTitle.innerHTML = "My To-Do List";
+    appTitle.innerHTML = "✅ My To-Do List";
     sidebar.appendChild(appTitle);
 
     const projectHeader = document.createElement("div");
@@ -31,6 +31,11 @@ const renderHome = () => {
     newProjectButton.innerHTML = "+";
     projectHeader.appendChild(newProjectButton);
 
+    const newNoteButton = document.createElement("button");
+    newNoteButton.classList.add("newnotebutton");
+    newNoteButton.innerHTML = "New To-Do Note";
+    main.appendChild(newNoteButton);
+    
 }
 
 export { renderHome };
