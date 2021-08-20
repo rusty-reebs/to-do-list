@@ -5,6 +5,3 @@
 import { renderHome } from "./components/home";
 
 renderHome();
-
-
-
