@@ -23,7 +23,7 @@ body {
     justify-content: center;
     background-color: lightgreen;
     /* height: 750px; */
-    height: auto;
+    height: auto;  /* is this based on how many rows are in notescontainer? */
     width: auto;
     grid-template-rows: 70px 30px 1fr;
 }
@@ -124,13 +124,44 @@ body {
     color: black;
 }
 
+.popupcontainer {
+    grid-row: 2;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.popupbox {
+    position: absolute;
+    top: 25%;
+    z-index: 100;
+    width: 400px;
+    height: 400px;
+    font-size: 30px;
+    background-color: lightyellow;
+    /* transition: 0.25s all ease-in-out; */  /* try to make a transition */
+    /* opacity: 0.0; */
+    border-radius: 3px;
+    border: none;
+    /* border: 3px solid black; */
+    text-align: center;
+    color: black;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
+/* .popupbox:active {
+    opacity: 1.0;
+} */
+
 .notescontainer {
     grid-row: 3;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr; /* how to set for unlimited rows, based on notes */
     grid-gap: 30px;
-
+    opacity: 1.0;
 }
 
 .note {
@@ -138,6 +169,7 @@ body {
     color: black;
     height: 250px;
     width: 250px;
+    border-radius: 3px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 }
