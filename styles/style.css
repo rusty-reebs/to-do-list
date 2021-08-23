@@ -1,154 +1,146 @@
-
 body {
-    margin: 0; /* stretches out to fill entire screen */
-    font-family: 'Roboto', serif;
+  margin: 0; /* stretches out to fill entire screen */
+  font-family: "Roboto", serif;
 }
 
-.homecontainer {        /* how to stretch sidebar and main to full length? */
-    display: grid;
-    grid-template-columns: 300px 1fr;
-
+.homecontainer {
+  /* how to stretch sidebar and main to full length? */
+  display: grid;
+  grid-template-columns: 300px 1fr;
 }
 
 .sidebar {
-    display: grid;
-    grid-template-rows: 70px 70px 70px 1fr;
-    background-color: lightyellow;
-    /* height: 750px; */
-    height: auto;
+  display: grid;
+  grid-template-rows: 70px 70px 70px 1fr;
+  background-color: lightyellow;
+  /* height: 750px; */
+  height: auto;
 }
 
 .main {
-    display: grid;
-    justify-content: center;
-    background-color: lightgreen;
-    /* height: 750px; */
-    height: auto;  /* is this based on how many rows are in notescontainer? */
-    width: auto;
-    grid-template-rows: 70px 30px 1fr;
+  display: grid;
+  justify-content: center;
+  background-color: lightgreen;
+  /* height: 750px; */
+  height: auto; /* is this based on how many rows are in notescontainer? */
+  width: auto;
+  grid-template-rows: 70px 30px 1fr;
 }
 
 .apptitle {
-    grid-row: 1;
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    /* padding: 15px 15px; */
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    height: 40px;
-    line-height: 40px;
-    margin-top: 15px;
-    margin-bottom: 0px;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 26px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-
+  grid-row: 1;
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  /* padding: 15px 15px; */
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 26px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .projectheader {
-    grid-row: 3;
-    border-bottom: 1px solid grey;
-    /* border: 1px solid grey; */
-    color: black;
-    text-align: left;
-    text-decoration: none;
-    display: block;
-    height: 40px;
-    line-height: 40px;
-    margin-top: 15px;
-    margin-bottom: 0px;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 26px;
-    /* border-radius: 10px; */
-    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
-
+  grid-row: 3;
+  border-bottom: 1px solid grey;
+  /* border: 1px solid grey; */
+  color: black;
+  text-align: left;
+  text-decoration: none;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 26px;
+  /* border-radius: 10px; */
+  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
 }
 
 .newprojectbutton {
-    float: right;
-    background-color: inherit;
-    border: none;
-    cursor: pointer;
-    font-size: 30px;
-    border-radius: 50px;
-    transition-duration: 0.4s;
-
+  float: right;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  font-size: 30px;
+  border-radius: 50px;
+  transition-duration: 0.4s;
 }
 
 .newprojectbutton:hover {
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 50px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 50px;
 }
 
 .buttoncontainer {
-    display: flex;
-    /* grid-row: 1; */
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-
+  display: flex;
+  /* grid-row: 1; */
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .newnotebutton {
-    /* grid-row: 1; */
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    /* padding: 15px 15px; */
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    width: 300px;
-    height: 40px;
-    /* line-height: 40px; */
-    /*  margin-top: 15px;
+  /* grid-row: 1; */
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  /* padding: 15px 15px; */
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  width: 300px;
+  height: 40px;
+  /* line-height: 40px; */
+  /*  margin-top: 15px;
     margin-bottom: 0px;
     margin-left: 10px;
     margin-right: 10px; */
-    font-size: 26px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    transition-duration: 0.4s;
-    cursor: pointer;
-
+  font-size: 26px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
 
 .newnotebutton:hover {
-    background-color: lightyellow;
-    color: black;
+  background-color: lightyellow;
+  color: black;
 }
 
 .popupcontainer {
-    grid-row: 2;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-
+  grid-row: 2;
+  display: none;
+  flex-direction: column;
+  align-items: center;
 }
 
 .popupbox {
-    position: absolute;
-    top: 25%;
-    z-index: 100;
-    width: 400px;
-    height: 400px;
-    font-size: 30px;
-    background-color: lightyellow;
-    /* transition: 0.25s all ease-in-out; */  /* try to make a transition */
-    /* opacity: 0.0; */
-    border-radius: 3px;
-    border: none;
-    /* border: 3px solid black; */
-    text-align: center;
-    color: black;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-
+  position: absolute;
+  top: 20%;
+  z-index: 100;
+  width: 450px;
+  height: 450px;
+  font-size: 30px;
+  background-color: lightyellow;
+  /* transition: 0.25s all ease-in-out; */ /* try to make a transition */
+  /* opacity: 0.0; */
+  border-radius: 3px;
+  border: none;
+  /* border: 3px solid black; */
+  text-align: center;
+  color: black;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* .popupbox:active {
@@ -156,20 +148,105 @@ body {
 } */
 
 .notescontainer {
-    grid-row: 3;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr; /* how to set for unlimited rows, based on notes */
-    grid-gap: 30px;
-    opacity: 1.0;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; /* how to set for unlimited rows, based on notes */
+  grid-gap: 30px;
+  opacity: 1;
 }
 
 .note {
-    background-color: lightyellow;
-    color: black;
-    height: 250px;
-    width: 250px;
-    border-radius: 3px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  background-color: lightyellow;
+  color: black;
+  height: 250px;
+  width: 250px;
+  border-radius: 3px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
+.noteform {
+  display: grid;
+  margin-top: 20px;
+  height: 430px;
+  grid-template-rows: 60px 130px 60px 60px 60px 60px;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.notetitle {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-family: inherit;
+  font-size: 20px;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+}
+
+.description {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 90%;
+  height: 120px;
+  resize: none;
+  font-family: inherit;
+  font-size: 20px;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+}
+
+.duedate {
+  grid-column: 1;
+}
+
+.duedatecal {
+  grid-column: 2;
+}
+
+.prioritylabel {
+  grid-column: 1;
+}
+
+input {
+  width: 90%;
+  margin: 8px 0;
+  padding: 10px;
+  background-color: lightyellow;
+  /* border: 0.25px solid grey; */
+  box-sizing: border-box;
+}
+
+textarea {
+  width: 90%;
+  background-color: lightyellow;
+  box-sizing: border-box;
+}
+/* input[type="text"] {
+  font-family: inherit;
+  font-size: 20px;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+} */
+
+select {
+  grid-column: 2;
+  width: 200px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+input[type="radio"] {
+}
+
+label {
+  font-size: 18px;
+}
+
+.submitbutton {
+  grid-row: 6;
 }
