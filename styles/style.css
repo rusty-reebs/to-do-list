@@ -29,7 +29,7 @@ body {
 
 .apptitle {
   grid-row: 1;
-  background-color: #4caf50; /* Green */
+  background-color: #4caf50;
   border: none;
   color: white;
   /* padding: 15px 15px; */
@@ -151,7 +151,7 @@ body {
   grid-row: 3;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr; /* how to set for unlimited rows, based on notes */
+  grid-template-rows: 1fr 1fr 1fr; /* how to set for unlimited rows, based on notes -- try auto? */
   grid-gap: 30px;
   opacity: 1;
 }
@@ -167,8 +167,8 @@ body {
 
 .noteform {
   display: grid;
-  margin-top: 20px;
-  height: 430px;
+  /* margin-top: 20px; */
+  height: 450px;
   grid-template-rows: 60px 130px 60px 60px 60px 60px;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -201,14 +201,23 @@ body {
 
 .duedate {
   grid-column: 1;
+  justify-self: left;
+  margin-left: 25px;
+  /* padding-right: 80px; */
+  font-size: 18px;
 }
 
 .duedatecal {
   grid-column: 2;
+  margin-right: 25px;
 }
 
 .prioritylabel {
   grid-column: 1;
+  justify-self: left;
+  margin-left: 25px;
+  /* padding-right: 80px; */
+  font-size: 18px;
 }
 
 input {
@@ -235,6 +244,7 @@ textarea {
 
 select {
   grid-column: 2;
+  margin-right: 25px;
   width: 200px;
   padding: 10px;
   border-radius: 10px;
@@ -243,10 +253,27 @@ select {
 input[type="radio"] {
 }
 
-label {
+.savebutton {
+  grid-row: 6;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  width: 200px;
+  height: 30px;
+  margin-top: 15px;
   font-size: 18px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
 
-.submitbutton {
-  grid-row: 6;
-}
+/* .savebutton:hover {
+  background-color: lightyellow;
+  color: black;
+} */
