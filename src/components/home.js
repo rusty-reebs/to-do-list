@@ -108,8 +108,8 @@ const notePopup = () => {
   inputTitle.id = "notetitle";
   inputTitle.placeholder = "Title";
 
-  const inputDescrip = document.createElement("input");
-  inputDescrip.type = "text";
+  const inputDescrip = document.createElement("textarea");
+  // inputDescrip.type = "text";
   inputDescrip.classList.add("description");
   inputDescrip.name = "description";
   inputDescrip.id = "notedescription";
@@ -122,7 +122,7 @@ const notePopup = () => {
   inputDueDate.id = "duedate";
 
   const labelPriority = document.createElement("label");
-  labelDueDate.classList.add("prioritylabel");
+  labelPriority.classList.add("prioritylabel");
   labelPriority.for = "priority";
   labelPriority.innerHTML = "Priority:";
 
@@ -141,42 +141,12 @@ const notePopup = () => {
   selectPriority.appendChild(medPri);
   selectPriority.appendChild(lowPri);
 
-  const labelPriorityHigh = document.createElement("label");
-  labelPriorityHigh.for = "priorityhigh";
-  labelPriorityHigh.innerHTML = "High";
-
-  const labelPriorityMed = document.createElement("label");
-  labelPriorityMed.for = "prioritymed";
-  labelPriorityMed.innerHTML = "Medium";
-
-  const labelPriorityLow = document.createElement("label");
-  labelPriorityLow.for = "prioritylow";
-  labelPriorityLow.innerHTML = "Low";
-
-  const inputPriorityHigh = document.createElement("input");
-  inputPriorityHigh.type = "radio";
-  inputPriorityHigh.name = "priority";
-  inputPriorityHigh.id = "priorityhigh";
-  inputPriorityHigh.value = "High";
-
-  const inputPriorityMed = document.createElement("input");
-  inputPriorityMed.type = "radio";
-  inputPriorityMed.name = "priority";
-  inputPriorityMed.id = "prioritymed";
-  inputPriorityMed.value = "Medium";
-
-  const inputPriorityLow = document.createElement("input");
-  inputPriorityLow.type = "radio";
-  inputPriorityLow.name = "priority";
-  inputPriorityLow.id = "prioritylow";
-  inputPriorityLow.value = "Low";
-
-  // const noteSubmitButton = document.createElement("button"); // doesn't like this
-  // noteSubmitButton.type = "submit";
-  // noteSubmitButton.classList.add(submitbutton);
-  // noteSubmitButton.name = "submit";
-  // noteSubmitButton.id = "submitnote";
-  // noteSubmitButton.innerHTML = "Save";
+  const noteSubmitButton = document.createElement("button"); // doesn't like this
+  noteSubmitButton.type = "submit";
+  noteSubmitButton.classList.add("savebutton");
+  noteSubmitButton.name = "submit";
+  noteSubmitButton.id = "submitnote";
+  noteSubmitButton.innerHTML = "Save";
 
   noteForm.appendChild(inputTitle);
   noteForm.appendChild(inputDescrip);
@@ -185,7 +155,7 @@ const notePopup = () => {
   noteForm.appendChild(inputDueDate);
   noteForm.appendChild(labelPriority);
   noteForm.appendChild(selectPriority);
-  // noteForm.appendChild(noteSubmitButton);
+  noteForm.appendChild(noteSubmitButton);
 
   // noteForm.appendChild(inputPriorityHigh);
   // noteForm.appendChild(labelPriorityHigh);
@@ -198,3 +168,33 @@ const notePopup = () => {
 export { notePopup };
 
 // TODO finish styling note popup and add save button
+
+// const labelPriorityHigh = document.createElement("label");
+// labelPriorityHigh.for = "priorityhigh";
+// labelPriorityHigh.innerHTML = "High";
+
+// const labelPriorityMed = document.createElement("label");
+// labelPriorityMed.for = "prioritymed";
+// labelPriorityMed.innerHTML = "Medium";
+
+// const labelPriorityLow = document.createElement("label");
+// labelPriorityLow.for = "prioritylow";
+// labelPriorityLow.innerHTML = "Low";
+
+// const inputPriorityHigh = document.createElement("input");
+// inputPriorityHigh.type = "radio";
+// inputPriorityHigh.name = "priority";
+// inputPriorityHigh.id = "priorityhigh";
+// inputPriorityHigh.value = "High";
+
+// const inputPriorityMed = document.createElement("input");
+// inputPriorityMed.type = "radio";
+// inputPriorityMed.name = "priority";
+// inputPriorityMed.id = "prioritymed";
+// inputPriorityMed.value = "Medium";
+
+// const inputPriorityLow = document.createElement("input");
+// inputPriorityLow.type = "radio";
+// inputPriorityLow.name = "priority";
+// inputPriorityLow.id = "prioritylow";
+// inputPriorityLow.value = "Low";
