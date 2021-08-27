@@ -149,14 +149,17 @@ body {
 
 .notescontainer {
   grid-row: 3;
+  min-height: 1090px; /* ???? */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr; /* how to set for unlimited rows, based on notes -- try auto? */
+  grid-template-rows: 1fr 1fr 1fr; /* ? how to set for unlimited rows, based on notes -- try auto? */
   grid-gap: 30px;
   opacity: 1;
 }
 
 .note {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   background-color: lightyellow;
   color: black;
   height: 250px;

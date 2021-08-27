@@ -2,7 +2,7 @@
 
 //! Separate DOM stuff from application logic, keep in separate modules
 
-import { saveNote } from "../index.js";
+// import { saveNote } from "../index.js";
 
 const renderHome = (() => {
   const content = document.getElementById("content");
@@ -76,9 +76,17 @@ const renderHome = (() => {
 
 export { renderHome };
 
+const popupContainer = document.createElement("div");
+const noteForm = document.createElement("form");
+const inputTitle = document.createElement("input");
+const inputDescrip = document.createElement("textarea");
+const inputDueDate = document.createElement("input");
+
+export { noteForm };
+
 const notePopup = () => {
   renderHome.notesContainer.style.opacity = "0.3"; // fades background
-  const popupContainer = document.createElement("div");
+  // const popupContainer = document.createElement("div");
   popupContainer.classList.add("popupcontainer");
   popupContainer.style.display = "flex";
   renderHome.main.appendChild(popupContainer);
@@ -87,21 +95,21 @@ const notePopup = () => {
   popupBox.classList.add("popupbox");
   popupContainer.appendChild(popupBox);
 
-  const noteForm = document.createElement("form");
+  // const noteForm = document.createElement("form");
   noteForm.classList.add("noteform");
   noteForm.id = "noteform";
   popupBox.appendChild(noteForm);
 
   const div = document.createElement("div");
 
-  const inputTitle = document.createElement("input");
+  // const inputTitle = document.createElement("input");
   inputTitle.classList.add("notetitle");
   inputTitle.type = "text";
   inputTitle.name = "title";
   inputTitle.id = "notetitle";
   inputTitle.placeholder = "Title";
 
-  const inputDescrip = document.createElement("textarea");
+  // const inputDescrip = document.createElement("textarea");
   inputDescrip.classList.add("description");
   inputDescrip.name = "description";
   inputDescrip.id = "notedescription";
@@ -112,7 +120,7 @@ const notePopup = () => {
   labelDueDate.for = "duedate";
   labelDueDate.innerHTML = "Due Date:";
 
-  const inputDueDate = document.createElement("input");
+  // const inputDueDate = document.createElement("input");
   inputDueDate.classList.add("duedatecal");
   inputDueDate.type = "date";
   inputDueDate.name = "duedate";
@@ -155,13 +163,13 @@ const notePopup = () => {
   selectPriority.appendChild(lowPri);
   noteForm.appendChild(noteSubmitButton);
 
-  noteForm.addEventListener("submit", (e) => {
-    e.preventDefault(); // stops refresh on submit
-    saveNote();
-    console.log("saved!");
-  });
+  // noteForm.addEventListener("submit", (e) => {
+  //   e.preventDefault(); // stops refresh on submit
+  //   saveNote();
+  //   console.log("saved!");
+  // });
 
-  return { popupContainer, noteForm, inputTitle, inputDescrip };
+  // return { popupContainer, noteForm, inputTitle, inputDescrip };
 };
 
 export { notePopup };
