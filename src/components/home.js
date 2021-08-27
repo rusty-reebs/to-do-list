@@ -82,7 +82,7 @@ const inputTitle = document.createElement("input");
 const inputDescrip = document.createElement("textarea");
 const inputDueDate = document.createElement("input");
 
-export { noteForm };
+export { popupContainer, noteForm };
 
 const notePopup = () => {
   renderHome.notesContainer.style.opacity = "0.3"; // fades background
@@ -175,10 +175,10 @@ const notePopup = () => {
 export { notePopup };
 
 const closeNotePopup = () => {
-  console.log(notePopup.popupContainer.style.display);
-  notePopup.popupContainer.style.display = "none";
-  notePopup.inputTitle.value = ""; //? can use .reset method?
-  notePopup.inputDescrip.value = "";
+  console.log(popupContainer.style.display);
+  popupContainer.style.display = "none";
+  inputTitle.value = ""; //? can use .reset method?
+  inputDescrip.value = "";
   console.log("I'm closing!");
 };
 

@@ -5,7 +5,7 @@
 import { renderHome } from "./components/home";
 import { notePopup } from "./components/home";
 import { closeNotePopup } from "./components/home";
-import { noteForm } from "./components/home";
+import { popupContainer, noteForm } from "./components/home";
 
 class Note {
   constructor(title, description, duedate, priority) {
@@ -26,14 +26,23 @@ renderHome.newNoteButton.addEventListener("click", () => {
   notePopup();
 });
 
-const noteTitle = document.getElementById("notetitle");
-const noteDescription = document.getElementById("notedescription");
-const noteDueDate = document.getElementById("duedate");
-const notePriority = document.getElementById("priority");
+// const noteTitle = document.getElementById("notetitle");
+// const noteDescription = document.getElementById("notedescription");
+// const noteDueDate = document.getElementById("duedate");
+// const notePriority = document.getElementById("priority");
+
+//! The form does not exist on start, so these variables are all null. Fubars the new Note. Try to reference these instead inside the event or function that captures the value. YES, THIS WORKED.
+//! maybe build the form on start but hide it?
+//! also think about a newnote module to separate things
 
 // save note function
 
 const saveNote = () => {
+  const noteTitle = document.getElementById("notetitle");
+  const noteDescription = document.getElementById("notedescription");
+  const noteDueDate = document.getElementById("duedate");
+  const notePriority = document.getElementById("priority");
+  console.log(noteTitle);
   const todoNote = new Note(
     noteTitle.value,
     noteDescription.value,
@@ -45,7 +54,7 @@ const saveNote = () => {
   populateBoard();
   setTimeout(() => closeNotePopup(), 300);
   renderHome.notesContainer.style.opacity = "1.0"; // brightens background
-  renderHome.main.removeChild(notePopup.popupContainer);
+  renderHome.main.removeChild(popupContainer);
 };
 
 // for each item in the array, build a note
