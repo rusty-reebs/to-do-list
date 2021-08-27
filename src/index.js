@@ -5,6 +5,7 @@
 import { renderHome } from "./components/home";
 import { notePopup } from "./components/home";
 import { closeNotePopup } from "./components/home";
+import { noteForm } from "./components/home";
 
 class Note {
   constructor(title, description, duedate, priority) {
@@ -47,8 +48,6 @@ const saveNote = () => {
   renderHome.main.removeChild(notePopup.popupContainer);
 };
 
-export { saveNote };
-
 // for each item in the array, build a note
 // populate note divs with object values
 
@@ -77,6 +76,12 @@ const buildNote = () => {
   blankNote.appendChild(priority);
   renderHome.notesContainer.appendChild(blankNote);
 };
+
+noteForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  saveNote();
+  console.log("saved!");
+});
 
 const addtoStorage = () => {
   localStorage.setItem("notes", JSON.stringify(noteArray.notes));
