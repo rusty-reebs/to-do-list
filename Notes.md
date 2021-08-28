@@ -6,7 +6,7 @@
 - ✅ create basic file structure
 - ✅ init webpack
 
-- create new note pop-up form
+- ✅ create new note pop-up form
 - push object to array
 - display array as a note in CSS
 

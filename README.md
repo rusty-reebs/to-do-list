@@ -5,7 +5,7 @@
 Date started: August 18, 2021  
 Date completed:  
 
-*Run webpack to build `/dist/main.js` from `/src`. Open `/dist/index.html` in browser.*
+**Run webpack to build `/dist/main.js` and `/dist/index.html` from `/src`. Open `/dist/index.html` in browser.**
 
 Objectives: use JavaScript to dynamically create objects and keep logic in separate modules.  
 
