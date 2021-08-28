@@ -2,6 +2,8 @@
 
 //! Separate DOM stuff from application logic, keep in separate modules
 
+//? Look at `data-id` attribute to grab notes with event listeners
+
 import { renderHome } from "./components/home";
 import { notePopup } from "./components/home";
 import { closeNotePopup } from "./components/home";
@@ -35,6 +37,8 @@ renderHome.newNoteButton.addEventListener("click", () => {
 //! maybe build the form on start but hide it?
 //! also think about a newnote module to separate things
 
+//! new second note popup not rendering correctly, because .main grid is changing?
+
 // save note function
 
 const saveNote = () => {
@@ -42,7 +46,7 @@ const saveNote = () => {
   const noteDescription = document.getElementById("notedescription");
   const noteDueDate = document.getElementById("duedate");
   const notePriority = document.getElementById("priority");
-  console.log(noteTitle);
+  console.log(noteTitle.value);
   const todoNote = new Note(
     noteTitle.value,
     noteDescription.value,
@@ -54,7 +58,10 @@ const saveNote = () => {
   populateBoard();
   setTimeout(() => closeNotePopup(), 300);
   renderHome.notesContainer.style.opacity = "1.0"; // brightens background
-  renderHome.main.removeChild(popupContainer);
+  // renderHome.main.removeChild(popupContainer);
+  popupContainer.remove();
+  console.log("removed the popupcontainer");
+  console.log(noteTitle.value);
 };
 
 // for each item in the array, build a note
@@ -79,6 +86,10 @@ const priority = document.createElement("div");
 const buildNote = () => {
   const blankNote = document.createElement("div");
   blankNote.classList.add("note");
+  title.classList.add("notedivtitle");
+  description.classList.add("notediv");
+  duedate.classList.add("notediv");
+  priority.classList.add("notediv");
   blankNote.appendChild(title);
   blankNote.appendChild(description);
   blankNote.appendChild(duedate);

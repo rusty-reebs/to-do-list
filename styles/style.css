@@ -84,7 +84,7 @@ body {
 
 .buttoncontainer {
   display: flex;
-  /* grid-row: 1; */
+  grid-row: 1;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -120,7 +120,7 @@ body {
 
 .popupcontainer {
   grid-row: 2;
-  display: none;
+  display: flex; /*! was none */
   flex-direction: column;
   align-items: center;
 }
@@ -159,13 +159,22 @@ body {
 
 .note {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr; /* ? can these be %? make the duedate and prior smaller */
   background-color: lightyellow;
   color: black;
   height: 250px;
   width: 250px;
   border-radius: 3px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.notediv {
+  margin: 15px;
+}
+
+.notedivtitle {
+  margin: 15px;
+  font-size: 20px;
 }
 
 .noteform {
@@ -182,6 +191,7 @@ body {
 .notetitle {
   grid-column-start: 1;
   grid-column-end: 3;
+  grid-row: 1;
   font-family: inherit;
   font-size: 20px;
   border: 0;
@@ -192,6 +202,7 @@ body {
 .description {
   grid-column-start: 1;
   grid-column-end: 3;
+  grid-row: 2;
   width: 90%;
   height: 120px;
   resize: none;
@@ -204,6 +215,7 @@ body {
 
 .duedate {
   grid-column: 1;
+  grid-row: 4;
   justify-self: left;
   margin-left: 25px;
   /* padding-right: 80px; */
@@ -212,11 +224,13 @@ body {
 
 .duedatecal {
   grid-column: 2;
+  grid-row: 4;
   margin-right: 25px;
 }
 
 .prioritylabel {
   grid-column: 1;
+  grid-row: 5;
   justify-self: left;
   margin-left: 25px;
   /* padding-right: 80px; */
@@ -247,13 +261,11 @@ textarea {
 
 select {
   grid-column: 2;
+  grid-row: 5;
   margin-right: 25px;
   width: 200px;
   padding: 10px;
   border-radius: 10px;
-}
-
-input[type="radio"] {
 }
 
 .savebutton {

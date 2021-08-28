@@ -46,25 +46,25 @@ const renderHome = (() => {
   notesContainer.classList.add("notescontainer");
   main.appendChild(notesContainer);
 
-  // const exampleNote = document.createElement("div"); //? function to create notes?
-  // exampleNote.classList.add("note");
-  // exampleNote.innerHTML = "This is a note";
-  // notesContainer.appendChild(exampleNote);
+  const exampleNote = document.createElement("div"); //? function to create notes?
+  exampleNote.classList.add("note");
+  exampleNote.innerHTML = "This is a note";
+  notesContainer.appendChild(exampleNote);
 
-  // const exampleNote2 = document.createElement("div");
-  // exampleNote2.classList.add("note");
-  // exampleNote2.innerHTML = "This is another note";
-  // notesContainer.appendChild(exampleNote2);
+  const exampleNote2 = document.createElement("div");
+  exampleNote2.classList.add("note");
+  exampleNote2.innerHTML = "This is another note";
+  notesContainer.appendChild(exampleNote2);
 
-  // const exampleNote3 = document.createElement("div");
-  // exampleNote3.classList.add("note");
-  // exampleNote3.innerHTML = "This is another note";
-  // notesContainer.appendChild(exampleNote3);
+  const exampleNote3 = document.createElement("div");
+  exampleNote3.classList.add("note");
+  exampleNote3.innerHTML = "This is another note";
+  notesContainer.appendChild(exampleNote3);
 
-  // const exampleNote4 = document.createElement("div");
-  // exampleNote4.classList.add("note");
-  // exampleNote4.innerHTML = "This is another note";
-  // notesContainer.appendChild(exampleNote4);
+  const exampleNote4 = document.createElement("div");
+  exampleNote4.classList.add("note");
+  exampleNote4.innerHTML = "This is another note";
+  notesContainer.appendChild(exampleNote4);
 
   // const exampleNote5 = document.createElement("div");
   // exampleNote5.classList.add("note");
@@ -88,8 +88,9 @@ const notePopup = () => {
   renderHome.notesContainer.style.opacity = "0.3"; // fades background
   // const popupContainer = document.createElement("div");
   popupContainer.classList.add("popupcontainer");
-  popupContainer.style.display = "flex";
-  renderHome.main.appendChild(popupContainer);
+  // popupContainer.style.display = "flex"; //!
+  // renderHome.main.appendChild(popupContainer);
+  renderHome.main.insertBefore(popupContainer, renderHome.main.childNodes[1]);
 
   const popupBox = document.createElement("div");
   popupBox.classList.add("popupbox");
@@ -175,10 +176,14 @@ const notePopup = () => {
 export { notePopup };
 
 const closeNotePopup = () => {
+  // renderHome.main.removeChild(popupContainer);
+  // popupContainer.remove();
   console.log(popupContainer.style.display);
-  popupContainer.style.display = "none";
-  inputTitle.value = ""; //? can use .reset method?
-  inputDescrip.value = "";
+  // popupContainer.style.display = "none";
+  console.log(popupContainer.style.display);
+  // inputTitle.value = ""; //? can use .reset method?
+  // inputDescrip.value = "";
+  noteForm.reset();
   console.log("I'm closing!");
 };
 
