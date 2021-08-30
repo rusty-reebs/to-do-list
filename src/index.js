@@ -46,8 +46,8 @@ const saveNote = () => {
   noteArray.notes.push(todoNote);
   console.log(noteArray.notes);
   clearBoard();
-  populateBoard();
-  // newPopulateBoard();
+  // populateBoard();
+  newPopulateBoard();
   setTimeout(() => closeNotePopup(), 300);
   renderHome.notesContainer.style.opacity = "1.0"; // brightens background
   popupContainer.remove();
@@ -62,16 +62,17 @@ const closeNotePopup = () => {
 // for each item in the array, build a note
 // populate note divs with object values
 
-// const newPopulateBoard = () => {
-//   noteArray.notes.forEach((note, index) => {
-//     renderHome.notesContainer.appendChild(blankNote);
-//     blankNote.appendChild(title);
-//     blankNote.appendChild(description);
-//     blankNote.appendChild(duedate);
-//     blankNote.appendChild(priority);
-//     console.log("blank note!");
-//   });
-// };
+const newPopulateBoard = () => {
+  noteArray.notes.forEach((note, index) => {
+    renderHome.notesContainer.appendChild(blankNote);
+    blankNote.appendChild(title);
+    blankNote.appendChild(description);
+    blankNote.appendChild(duedate);
+    blankNote.appendChild(priority);
+    console.log("blank note!");
+    console.log(index);
+  });
+};
 
 const title = document.createElement("div");
 title.classList.add("notedivtitle");
@@ -84,27 +85,26 @@ priority.classList.add("notediv");
 const blankNote = document.createElement("div");
 blankNote.classList.add("note");
 
-const populateBoard = () => {
-  noteArray.notes.forEach((note, index) => {
-    renderHome.notesContainer.appendChild(blankNote);
-    console.log("append the note");
-    buildNote();
-    console.log("build the note");
-    title.textContent = note.title;
-    description.textContent = note.description;
-    duedate.textContent = note.duedate;
-    priority.textContent = note.priority;
-    console.log("fill in the blanks");
-  });
-};
+// const populateBoard = () => {
+//   noteArray.notes.forEach((note, index) => {
+//     renderHome.notesContainer.appendChild(blankNote);
+//     console.log("append the note");
+//     buildNote();
+//     console.log("build the note");
+//     title.textContent = note.title;
+//     description.textContent = note.description;
+//     duedate.textContent = note.duedate;
+//     priority.textContent = note.priority;
+//     console.log("fill in the blanks");
+//   });
+// };
 
-const buildNote = () => {
-  blankNote.appendChild(title);
-  blankNote.appendChild(description);
-  blankNote.appendChild(duedate);
-  blankNote.appendChild(priority);
-  // renderHome.notesContainer.appendChild(blankNote);
-};
+// const buildNote = () => {
+//   blankNote.appendChild(title);
+//   blankNote.appendChild(description);
+//   blankNote.appendChild(duedate);
+//   blankNote.appendChild(priority);
+// };
 
 const clearBoard = () => {
   while (renderHome.notesContainer.hasChildNodes()) {
