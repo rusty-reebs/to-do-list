@@ -2,8 +2,6 @@
 
 //! Separate DOM stuff from application logic, keep in separate modules
 
-// import { saveNote } from "../index.js";
-
 const renderHome = (() => {
   const content = document.getElementById("content");
   const homeContainer = document.createElement("div");
@@ -46,25 +44,25 @@ const renderHome = (() => {
   notesContainer.classList.add("notescontainer");
   main.appendChild(notesContainer);
 
-  const exampleNote = document.createElement("div"); //? function to create notes?
-  exampleNote.classList.add("note");
-  exampleNote.innerHTML = "This is a note";
-  notesContainer.appendChild(exampleNote);
+  // const exampleNote = document.createElement("div"); //? function to create notes?
+  // exampleNote.classList.add("note");
+  // exampleNote.innerHTML = "This is a note";
+  // notesContainer.appendChild(exampleNote);
 
-  const exampleNote2 = document.createElement("div");
-  exampleNote2.classList.add("note");
-  exampleNote2.innerHTML = "This is another note";
-  notesContainer.appendChild(exampleNote2);
+  // const exampleNote2 = document.createElement("div");
+  // exampleNote2.classList.add("note");
+  // exampleNote2.innerHTML = "This is another note";
+  // notesContainer.appendChild(exampleNote2);
 
-  const exampleNote3 = document.createElement("div");
-  exampleNote3.classList.add("note");
-  exampleNote3.innerHTML = "This is another note";
-  notesContainer.appendChild(exampleNote3);
+  // const exampleNote3 = document.createElement("div");
+  // exampleNote3.classList.add("note");
+  // exampleNote3.innerHTML = "This is another note";
+  // notesContainer.appendChild(exampleNote3);
 
-  const exampleNote4 = document.createElement("div");
-  exampleNote4.classList.add("note");
-  exampleNote4.innerHTML = "This is another note";
-  notesContainer.appendChild(exampleNote4);
+  // const exampleNote4 = document.createElement("div");
+  // exampleNote4.classList.add("note");
+  // exampleNote4.innerHTML = "This is another note";
+  // notesContainer.appendChild(exampleNote4);
 
   // const exampleNote5 = document.createElement("div");
   // exampleNote5.classList.add("note");
@@ -77,80 +75,63 @@ const renderHome = (() => {
 export { renderHome };
 
 const popupContainer = document.createElement("div");
+popupContainer.classList.add("popupcontainer");
+const popupBox = document.createElement("div");
+popupBox.classList.add("popupbox");
 const noteForm = document.createElement("form");
+noteForm.classList.add("noteform");
+noteForm.id = "noteform";
 const inputTitle = document.createElement("input");
+inputTitle.classList.add("notetitle");
+inputTitle.type = "text";
+inputTitle.name = "title";
+inputTitle.id = "notetitle";
+inputTitle.placeholder = "Title";
 const inputDescrip = document.createElement("textarea");
+inputDescrip.classList.add("description");
+inputDescrip.name = "description";
+inputDescrip.id = "notedescription";
+inputDescrip.placeholder = "Take a note...";
+const labelDueDate = document.createElement("label");
+labelDueDate.classList.add("duedate");
+labelDueDate.for = "duedate";
+labelDueDate.innerHTML = "Due Date:";
 const inputDueDate = document.createElement("input");
+inputDueDate.classList.add("duedatecal");
+inputDueDate.type = "date";
+inputDueDate.name = "duedate";
+inputDueDate.id = "duedate";
+const labelPriority = document.createElement("label");
+labelPriority.classList.add("prioritylabel");
+labelPriority.for = "priority";
+labelPriority.innerHTML = "Priority:";
+const selectPriority = document.createElement("select");
+selectPriority.name = "priority";
+selectPriority.id = "priority";
+const highPri = document.createElement("option");
+highPri.value = "High";
+highPri.innerHTML = "High";
+const medPri = document.createElement("option");
+medPri.value = "Medium";
+medPri.innerHTML = "Medium";
+const lowPri = document.createElement("option");
+lowPri.value = "Low";
+lowPri.innerHTML = "Low";
+const noteSubmitButton = document.createElement("button");
+noteSubmitButton.type = "submit";
+noteSubmitButton.classList.add("savebutton");
+noteSubmitButton.name = "submit";
+noteSubmitButton.id = "submitnote";
+noteSubmitButton.innerHTML = "Save";
+const div = document.createElement("div");
 
 export { popupContainer, noteForm };
 
 const notePopup = () => {
   renderHome.notesContainer.style.opacity = "0.3"; // fades background
-  // const popupContainer = document.createElement("div");
-  popupContainer.classList.add("popupcontainer");
-  // popupContainer.style.display = "flex"; //!
-  // renderHome.main.appendChild(popupContainer);
-  renderHome.main.insertBefore(popupContainer, renderHome.main.childNodes[1]);
 
-  const popupBox = document.createElement("div");
-  popupBox.classList.add("popupbox");
   popupContainer.appendChild(popupBox);
-
-  // const noteForm = document.createElement("form");
-  noteForm.classList.add("noteform");
-  noteForm.id = "noteform";
   popupBox.appendChild(noteForm);
-
-  const div = document.createElement("div");
-
-  // const inputTitle = document.createElement("input");
-  inputTitle.classList.add("notetitle");
-  inputTitle.type = "text";
-  inputTitle.name = "title";
-  inputTitle.id = "notetitle";
-  inputTitle.placeholder = "Title";
-
-  // const inputDescrip = document.createElement("textarea");
-  inputDescrip.classList.add("description");
-  inputDescrip.name = "description";
-  inputDescrip.id = "notedescription";
-  inputDescrip.placeholder = "Take a note...";
-
-  const labelDueDate = document.createElement("label");
-  labelDueDate.classList.add("duedate");
-  labelDueDate.for = "duedate";
-  labelDueDate.innerHTML = "Due Date:";
-
-  // const inputDueDate = document.createElement("input");
-  inputDueDate.classList.add("duedatecal");
-  inputDueDate.type = "date";
-  inputDueDate.name = "duedate";
-  inputDueDate.id = "duedate";
-
-  const labelPriority = document.createElement("label");
-  labelPriority.classList.add("prioritylabel");
-  labelPriority.for = "priority";
-  labelPriority.innerHTML = "Priority:";
-
-  const selectPriority = document.createElement("select");
-  selectPriority.name = "priority";
-  selectPriority.id = "priority";
-  const highPri = document.createElement("option");
-  highPri.value = "High";
-  highPri.innerHTML = "High";
-  const medPri = document.createElement("option");
-  medPri.value = "Medium";
-  medPri.innerHTML = "Medium";
-  const lowPri = document.createElement("option");
-  lowPri.value = "Low";
-  lowPri.innerHTML = "Low";
-
-  const noteSubmitButton = document.createElement("button");
-  noteSubmitButton.type = "submit";
-  noteSubmitButton.classList.add("savebutton");
-  noteSubmitButton.name = "submit";
-  noteSubmitButton.id = "submitnote";
-  noteSubmitButton.innerHTML = "Save";
 
   noteForm.appendChild(inputTitle);
   noteForm.appendChild(inputDescrip);
@@ -159,35 +140,17 @@ const notePopup = () => {
   noteForm.appendChild(inputDueDate);
   noteForm.appendChild(labelPriority);
   noteForm.appendChild(selectPriority);
+
   selectPriority.appendChild(highPri);
   selectPriority.appendChild(medPri);
   selectPriority.appendChild(lowPri);
+
   noteForm.appendChild(noteSubmitButton);
 
-  // noteForm.addEventListener("submit", (e) => {
-  //   e.preventDefault(); // stops refresh on submit
-  //   saveNote();
-  //   console.log("saved!");
-  // });
-
-  // return { popupContainer, noteForm, inputTitle, inputDescrip };
+  renderHome.main.insertBefore(popupContainer, renderHome.main.childNodes[1]);
 };
 
 export { notePopup };
-
-const closeNotePopup = () => {
-  // renderHome.main.removeChild(popupContainer);
-  // popupContainer.remove();
-  console.log(popupContainer.style.display);
-  // popupContainer.style.display = "none";
-  console.log(popupContainer.style.display);
-  // inputTitle.value = ""; //? can use .reset method?
-  // inputDescrip.value = "";
-  noteForm.reset();
-  console.log("I'm closing!");
-};
-
-export { closeNotePopup };
 
 // Possible radio buttons for priority inputs
 
