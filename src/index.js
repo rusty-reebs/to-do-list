@@ -45,9 +45,7 @@ const saveNote = () => {
   );
   noteArray.notes.push(todoNote);
   console.log(noteArray.notes);
-  clearBoard();
-  // populateBoard();
-  newPopulateBoard();
+  populateBoard();
   setTimeout(() => closeNotePopup(), 300);
   renderHome.notesContainer.style.opacity = "1.0"; // brightens background
   popupContainer.remove();
@@ -62,49 +60,30 @@ const closeNotePopup = () => {
 // for each item in the array, build a note
 // populate note divs with object values
 
-const newPopulateBoard = () => {
+const populateBoard = () => {
+  clearBoard();
   noteArray.notes.forEach((note, index) => {
-    renderHome.notesContainer.appendChild(blankNote);
+    const blankNote = document.createElement("div");
+    blankNote.classList.add("note");
+    const title = document.createElement("div");
+    title.classList.add("notedivtitle");
+    title.textContent = note.title;
     blankNote.appendChild(title);
+    const description = document.createElement("div");
+    description.classList.add("notediv");
+    description.textContent = note.description;
     blankNote.appendChild(description);
+    const duedate = document.createElement("div");
+    duedate.classList.add("notediv");
+    duedate.textContent = note.duedate;
     blankNote.appendChild(duedate);
+    const priority = document.createElement("div");
+    priority.classList.add("notediv");
+    priority.textContent = note.priority;
     blankNote.appendChild(priority);
-    console.log("blank note!");
-    console.log(index);
+    renderHome.notesContainer.appendChild(blankNote);
   });
 };
-
-const title = document.createElement("div");
-title.classList.add("notedivtitle");
-const description = document.createElement("div");
-description.classList.add("notediv");
-const duedate = document.createElement("div");
-duedate.classList.add("notediv");
-const priority = document.createElement("div");
-priority.classList.add("notediv");
-const blankNote = document.createElement("div");
-blankNote.classList.add("note");
-
-// const populateBoard = () => {
-//   noteArray.notes.forEach((note, index) => {
-//     renderHome.notesContainer.appendChild(blankNote);
-//     console.log("append the note");
-//     buildNote();
-//     console.log("build the note");
-//     title.textContent = note.title;
-//     description.textContent = note.description;
-//     duedate.textContent = note.duedate;
-//     priority.textContent = note.priority;
-//     console.log("fill in the blanks");
-//   });
-// };
-
-// const buildNote = () => {
-//   blankNote.appendChild(title);
-//   blankNote.appendChild(description);
-//   blankNote.appendChild(duedate);
-//   blankNote.appendChild(priority);
-// };
 
 const clearBoard = () => {
   while (renderHome.notesContainer.hasChildNodes()) {
