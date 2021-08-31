@@ -2,7 +2,7 @@
 
 //! Separate DOM stuff from application logic, keep in separate modules
 
-//? Look at `data-id` attribute to grab notes with event listeners
+//? Look at `data-id` attribute to grab notes with event listeners. Look at the game jam.
 
 import { renderHome } from "./components/home";
 import { notePopup } from "./components/home";
@@ -27,9 +27,21 @@ renderHome.newNoteButton.addEventListener("click", () => {
   notePopup();
 });
 
-//! also think about a newnote module to separate things
+// TODO fix event listener. When I click a note, I get multiple listeners firing
 
-// save note function
+window.addEventListener("click", ({ target }) => {
+  if (
+    !target.closest(".popupcontainer") &&
+    !target.closest(".newnotebutton") &&
+    popupContainer.classList.contains("show")
+  ) {
+    console.log("clicked off the box");
+    popupContainer.classList.toggle("show");
+    closeNotePopup();
+  }
+});
+
+//! also think about a newnote module to separate things
 
 const saveNote = () => {
   const noteTitle = document.getElementById("notetitle");
@@ -47,13 +59,12 @@ const saveNote = () => {
   console.log(noteArray.notes);
   populateBoard();
   setTimeout(() => closeNotePopup(), 300);
-  renderHome.notesContainer.style.opacity = "1.0"; // brightens background
-  popupContainer.remove();
-  console.log("removed the popupcontainer");
 };
 
 const closeNotePopup = () => {
+  renderHome.notesContainer.style.opacity = "1.0"; // brightens background
   noteForm.reset();
+  popupContainer.remove();
   console.log("I'm closing!");
 };
 
@@ -82,7 +93,18 @@ const populateBoard = () => {
     priority.textContent = note.priority;
     blankNote.appendChild(priority);
     renderHome.notesContainer.appendChild(blankNote);
+    addToStorage();
+    blankNote.addEventListener("click", () => {
+      console.log("You clicked a note");
+      console.log(note);
+      editNote();
+      // TODO when you click a note, it should open the popup and fill in the existing values
+    });
   });
+};
+
+const editNote = () => {
+  notePopup();
 };
 
 const clearBoard = () => {
@@ -97,10 +119,19 @@ noteForm.addEventListener("submit", (e) => {
   console.log("saved!");
 });
 
-const addtoStorage = () => {
+const addToStorage = () => {
   localStorage.setItem("notes", JSON.stringify(noteArray.notes));
 };
 
-const getfromStorage = () => {
+const getFromStorage = () => {
   noteArray.notes = JSON.parse(localStorage.getItem("notes"));
 };
+
+// If local storage does not exist, create it, otherwise get notes from local storage
+if (!localStorage.getItem("notes")) {
+  addToStorage();
+} else {
+  getFromStorage();
+}
+
+populateBoard();

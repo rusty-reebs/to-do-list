@@ -130,6 +130,7 @@ export { popupContainer, noteForm };
 const notePopup = () => {
   renderHome.notesContainer.style.opacity = "0.3"; // fades background
 
+  popupContainer.classList.toggle("show");
   popupContainer.appendChild(popupBox);
   popupBox.appendChild(noteForm);
 
