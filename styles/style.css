@@ -159,13 +159,20 @@ body {
 
 .note {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr; /* ? can these be %? make the duedate and prior smaller */
+  /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr; ? can these be %? make the duedate and prior smaller */
+  grid-template-rows: 20% 50% 10% 5% 5%; /* ? can these be %? make the duedate and prior smaller */
+
   background-color: lightyellow;
   color: black;
   height: 250px;
   width: 250px;
   border-radius: 3px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: normal;
 }
 
 .notediv {
@@ -176,6 +183,42 @@ body {
   margin: 15px;
   font-size: 20px;
   font-weight: bold;
+}
+
+.notedivduedate {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.notedivpriority {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 14px;
+  margin: 15px;
+}
+
+.high {
+  width: fit-content;
+  color: white;
+  background-color: #f44336;
+  padding: 1px 5px;
+}
+
+.medium {
+  width: fit-content;
+  color: black;
+  background-color: #ffc107;
+  padding: 1px 5px;
+}
+
+.low {
+  width: fit-content;
+  color: black;
+  background-color: lightgreen;
+  padding: 1px 5px;
 }
 
 .noteform {
@@ -236,6 +279,10 @@ body {
   margin-left: 25px;
   /* padding-right: 80px; */
   font-size: 18px;
+}
+.trashicondiv {
+  grid-column: 2;
+  justify-self: right;
 }
 
 input {
