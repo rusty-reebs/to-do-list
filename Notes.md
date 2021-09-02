@@ -7,20 +7,24 @@
 - ✅ init webpack
 
 - ✅ create new note pop-up form
-- push object to array
-- display array as a note in CSS
-
+- ✅ push object to array
+- ✅ display array as a note in CSS
+- grab notes with event listeners, pop-up input box with everything filled in.
+- create new project function
+- 
 
 
 What module files?
 
+- render the main page in index.html?
 - index.js --> calls functions such as home
 - /components/home.js --> main UI
 - /components.note.js --> pops up and creates a new note
 - 
 
 build homepage
-- ✅ need sidebar and main container
+- ✅ need sidebar and main container => move to index.html?
+- 
 
 
 
