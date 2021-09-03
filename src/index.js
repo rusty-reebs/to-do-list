@@ -2,11 +2,9 @@
 
 //! Separate DOM stuff from application logic, keep in separate modules
 
-//? Look at `data-string` attribute to grab notes with event listeners. Look at the game jam.
-
 import { renderHome } from "./components/home";
 import { notePopup } from "./components/home";
-import { popupContainer, noteForm } from "./components/home";
+import { popupContainer, noteForm, inputDescrip } from "./components/home";
 
 class Note {
   constructor(title, description, duedate, priority) {
@@ -17,10 +15,29 @@ class Note {
   }
 }
 
-const noteArray = (() => {
-  const notes = [];
-  return { notes };
-})();
+let myNoteArray = [
+  {
+    title: "1st note",
+    description:
+      "Hi, I'm the first note in the array. You can click on me to edit.",
+    // duedate: 2021 / 09 / 01,
+    duedate: "",
+    priority: "High",
+  },
+  {
+    title: "2nd note",
+    description: "Greetings, I am the second note. My priority is medium.",
+    duedate: "",
+    priority: "Medium",
+  },
+  {
+    title: "3rd note with longer title and text",
+    description:
+      "Hello, I'm the third note. You can click the trash can to delete me. My description is super duper long and shows what happens when you exceed the text area. Suprise! You can scroll my content.",
+    duedate: "",
+    priority: "Low",
+  },
+];
 
 renderHome.newNoteButton.addEventListener("click", () => {
   console.log("new note!");
@@ -33,44 +50,48 @@ noteForm.addEventListener("submit", (e) => {
   console.log("saved!");
 });
 
-// TODO event listeners good, except for +New Note when popup box is open
+// TODO revamp event listeners.
 // if (e.target !== btn) btn.classList.remove("active"); EXAMPLE
 
-window.addEventListener("click", ({ target }) => {
-  if (
-    !target.closest(".popupcontainer") &&
-    !target.closest(".newnotebutton") &&
-    popupContainer.classList.contains("show")
-  ) {
-    console.log("clicked off the box");
-    popupContainer.classList.toggle("show");
-    closeNotePopup();
-  } else if (
-    !popupContainer.classList.contains("show") &&
-    target.closest(".note")
-  ) {
-    console.log("you clicked a note");
-    console.log(target.closest(".note"));
-    editNote(); //? pass in some useful note id
-  }
-});
+// window.addEventListener("click", ({ target }) => {
+//   if (
+//     !target.closest(".popupcontainer") &&
+//     !target.closest(".newnotebutton") &&
+//     popupContainer.classList.contains("show")
+//   ) {
+//     console.log("clicked off the box");
+//     popupContainer.classList.toggle("show");
+//     closeNotePopup();
+//   }
+// } else if (
+//   !popupContainer.classList.contains("show") &&
+//   target.closest(".note")
+// ) {
+//   console.log("you clicked a note");
+//   console.log(target.closest(".note"));
+//   editNote(); //? pass in some useful note id
+// }
+// });
 
 //! also think about a newnote module to separate things. Read the objectives again.
+// let noteIdentifierCount = 1;
 
 const saveNote = () => {
   const noteTitle = document.getElementById("notetitle");
   const noteDescription = document.getElementById("notedescription");
   const noteDueDate = document.getElementById("duedate");
   const notePriority = document.getElementById("priority");
+  // noteTitle.setAttribute("data-note-identifier", noteIdentifierCount);
   console.log(noteTitle.value);
+  // console.log(noteTitle.getAttribute("data-note-identifier"));
   const todoNote = new Note(
     noteTitle.value,
     noteDescription.value,
     noteDueDate.value,
     notePriority.value
   );
-  noteArray.notes.push(todoNote);
-  console.log(noteArray.notes);
+  myNoteArray.push(todoNote);
+  // noteIdentifierCount++;
   //? need to set a unique identifier for a note? To be used for editing? Data-id
   populateBoard();
   setTimeout(() => closeNotePopup(), 300);
@@ -88,10 +109,21 @@ const closeNotePopup = () => {
 
 const populateBoard = () => {
   clearBoard();
-  noteArray.notes.forEach((note, index) => {
+  let noteIdentifierCount = 0;
+  myNoteArray.forEach((note, index) => {
     const blankNote = document.createElement("div");
     //? set data-id here?
+    blankNote.setAttribute("data-note-identifier", noteIdentifierCount);
+    console.log(blankNote.getAttribute("data-note-identifier"));
+    console.log(index);
     blankNote.classList.add("note");
+    blankNote.addEventListener("click", () => {
+      let notenumber = blankNote.getAttribute("data-note-identifier");
+      console.log(blankNote.getAttribute("data-note-identifier"));
+      console.log(notenumber);
+      console.log("You clicked a blankNote");
+      editNote(notenumber);
+    });
     const title = document.createElement("div");
     title.classList.add("notedivtitle");
     title.classList.add("scroll");
@@ -142,18 +174,29 @@ const populateBoard = () => {
     trashIcon.classList.add("fa-trash");
     trashIconDiv.appendChild(trashIcon);
     priority.appendChild(trashIconDiv);
+    const trashCanNodes = document.querySelectorAll("trashicondiv");
+    trashCanNodes.forEach((trash, index) => {
+      //! it's not listening
+      trash.addEventListener("click", () => {
+        console.log("TRASH CAN!");
+      });
+    });
+    noteIdentifierCount++;
     renderHome.notesContainer.appendChild(blankNote);
     addToStorage();
     //? may still need blankNote.forEach eventlistener to get actual note
   });
 };
 
-const editNote = () => {
-  //? can pass in a note id parameter?
+const editNote = (notenumber) => {
+  //? can pass in a note id parameter? Yes!
   notePopup();
-  // TODO fill in existing values ⬇️ THIS
+  // TODO fill in existing values ⬇️ THIS.
+  // TODO
   // note popup box comes up for a specific note. Need to get the data for that note and put it in the data fields.
   // Need to save the edit by removing the old object and inserting the new object. May need different event listener?
+  console.log("Editing", myNoteArray[notenumber]);
+  inputDescrip.value = myNoteArray[notenumber].description; // it's working
 };
 
 const clearBoard = () => {
@@ -163,11 +206,11 @@ const clearBoard = () => {
 };
 
 const addToStorage = () => {
-  localStorage.setItem("notes", JSON.stringify(noteArray.notes));
+  localStorage.setItem("notes", JSON.stringify(myNoteArray));
 };
 
 const getFromStorage = () => {
-  noteArray.notes = JSON.parse(localStorage.getItem("notes"));
+  myNoteArray = JSON.parse(localStorage.getItem("notes"));
 };
 
 // If local storage does not exist, create it, otherwise get notes from local storage

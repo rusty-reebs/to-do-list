@@ -125,7 +125,7 @@ noteSubmitButton.id = "submitnote";
 noteSubmitButton.innerHTML = "Save";
 const div = document.createElement("div");
 
-export { popupContainer, noteForm };
+export { popupContainer, noteForm, inputDescrip };
 
 const notePopup = () => {
   renderHome.notesContainer.style.opacity = "0.3"; // fades background
