@@ -3,8 +3,15 @@
 //! Separate DOM stuff from application logic, keep in separate modules
 
 import { renderHome } from "./components/home";
-import { notePopup } from "./components/home";
-import { popupContainer, noteForm, inputDescrip } from "./components/home";
+import { buildNotePopup } from "./components/notepopup";
+import {
+  popupContainer,
+  noteForm,
+  inputTitle,
+  inputDescrip,
+  inputDueDate,
+  selectPriority,
+} from "./components/notepopup";
 
 class Note {
   constructor(title, description, duedate, priority) {
@@ -41,7 +48,7 @@ let myNoteArray = [
 
 renderHome.newNoteButton.addEventListener("click", () => {
   console.log("new note!");
-  notePopup();
+  renderNotePopup();
 });
 
 noteForm.addEventListener("submit", (e) => {
@@ -73,7 +80,6 @@ noteForm.addEventListener("submit", (e) => {
 // }
 // });
 
-//! also think about a newnote module to separate things. Read the objectives again.
 // let noteIdentifierCount = 1;
 
 const saveNote = () => {
@@ -95,6 +101,12 @@ const saveNote = () => {
   //? need to set a unique identifier for a note? To be used for editing? Data-id
   populateBoard();
   setTimeout(() => closeNotePopup(), 300);
+};
+
+const renderNotePopup = () => {
+  buildNotePopup();
+  renderHome.notesContainer.style.opacity = "0.3"; // fades background, move to index?
+  renderHome.main.insertBefore(popupContainer, renderHome.main.childNodes[1]); // move to index?
 };
 
 const closeNotePopup = () => {
@@ -189,14 +201,17 @@ const populateBoard = () => {
 };
 
 const editNote = (notenumber) => {
-  //? can pass in a note id parameter? Yes!
-  notePopup();
+  // pass in a note id parameter? Yes!
+
+  renderNotePopup();
   // TODO fill in existing values ⬇️ THIS.
-  // TODO
   // note popup box comes up for a specific note. Need to get the data for that note and put it in the data fields.
   // Need to save the edit by removing the old object and inserting the new object. May need different event listener?
   console.log("Editing", myNoteArray[notenumber]);
+  inputTitle.value = myNoteArray[notenumber].title;
   inputDescrip.value = myNoteArray[notenumber].description; // it's working
+  inputDueDate.value = myNoteArray[notenumber].duedate;
+  selectPriority.value = myNoteArray[notenumber].priority;
 };
 
 const clearBoard = () => {
