@@ -62,7 +62,7 @@ noteSubmitButton.innerHTML = "Save";
 const div = document.createElement("div");
 
 const buildNotePopup = () => {
-  popupContainer.classList.toggle("show");
+  // popupContainer.classList.toggle("show");
   popupContainer.appendChild(popupBox);
   popupBox.appendChild(noteForm);
 

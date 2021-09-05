@@ -69,5 +69,5 @@ const renderHome = (() => {
   // exampleNote5.innerHTML = "This is another note";
   // notesContainer.appendChild(exampleNote5);
 
-  return { main, notesContainer, newNoteButton };
+  return { homeContainer, main, notesContainer, newNoteButton };
 })();

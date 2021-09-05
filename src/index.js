@@ -26,22 +26,22 @@ let myNoteArray = [
   {
     title: "1st note",
     description:
-      "Hi, I'm the first note in the array. You can click on me to edit.",
-    // duedate: 2021 / 09 / 01,
-    duedate: "",
+      "Hi, I'm the first note in the array. You can click on me to edit. 📝",
+    duedate: "2021/09/01", //! not showing in edit
     priority: "High",
   },
   {
     title: "2nd note",
-    description: "Greetings, I am the second note. My priority is medium.",
-    duedate: "",
+    description:
+      "Greetings, I am the second note. You can click on the trash can to delete me.",
+    duedate: "2021/09/04",
     priority: "Medium",
   },
   {
     title: "3rd note with longer title and text",
     description:
-      "Hello, I'm the third note. You can click the trash can to delete me. My description is super duper long and shows what happens when you exceed the text area. Suprise! You can scroll my content.",
-    duedate: "",
+      "Hello, I'm the third note. My priority is low. My title and description are super duper long and show what happens when you exceed the text area. Surprise! You can scroll my content.",
+    duedate: "2021/09/30",
     priority: "Low",
   },
 ];
@@ -49,6 +49,8 @@ let myNoteArray = [
 renderHome.newNoteButton.addEventListener("click", () => {
   console.log("new note!");
   renderNotePopup();
+  popupContainer.classList.add("addnew");
+  console.log("classlist addnew");
 });
 
 noteForm.addEventListener("submit", (e) => {
@@ -57,7 +59,42 @@ noteForm.addEventListener("submit", (e) => {
   console.log("saved!");
 });
 
-// TODO revamp event listeners.
+// TODO fine tune event listeners. When editing, note clicks change the edit popup.
+
+renderHome.homeContainer.addEventListener(
+  "click",
+  (e) => {
+    console.log("you clicked the homeContainer");
+    if (
+      !e.target.closest(".popupcontainer") &&
+      !e.target.closest(".newnotebutton") &&
+      popupContainer.classList.contains("addnew")
+    ) {
+      closeNotePopup();
+      popupContainer.classList.remove("addnew");
+    } else if (
+      popupContainer.classList.contains("edit") &&
+      !e.target.closest(".popupcontainer") &&
+      !e.target.closest(".newnotebutton")
+    ) {
+      // e.stopImmediatePropagation();
+      closeNotePopup();
+      popupContainer.classList.remove("edit");
+    }
+  },
+  true
+);
+//     e.target !== renderHome.newNoteButton &&
+//     popupContainer.classList.contains("show")
+//   ) {
+//     console.log("You clicked off the popup box");
+//     popupContainer.classList.remove("show");
+//     closeNotePopup();
+//   }
+// else if (!popupContainer.classList.contains("show") && e.target == blankNote) {
+
+// }
+// });
 // if (e.target !== btn) btn.classList.remove("active"); EXAMPLE
 
 // window.addEventListener("click", ({ target }) => {
@@ -120,21 +157,25 @@ const closeNotePopup = () => {
 // populate note divs with object values
 
 const populateBoard = () => {
+  //! can some of this DOM stuff be written as a function in a module?
   clearBoard();
   let noteIdentifierCount = 0;
   myNoteArray.forEach((note, index) => {
     const blankNote = document.createElement("div");
     //? set data-id here?
     blankNote.setAttribute("data-note-identifier", noteIdentifierCount);
-    console.log(blankNote.getAttribute("data-note-identifier"));
-    console.log(index);
+    // console.log(blankNote.getAttribute("data-note-identifier"));
+    // console.log(index);
     blankNote.classList.add("note");
+    let noteNumber = index;
     blankNote.addEventListener("click", () => {
-      let notenumber = blankNote.getAttribute("data-note-identifier");
-      console.log(blankNote.getAttribute("data-note-identifier"));
-      console.log(notenumber);
+      popupContainer.classList.add("edit");
+      // let noteNumber = index;
+      // let notenumber = blankNote.getAttribute("data-note-identifier"); //? maybe don't need data-note-idenitifer
+      // console.log(blankNote.getAttribute("data-note-identifier"));
+      console.log("Array position", noteNumber);
       console.log("You clicked a blankNote");
-      editNote(notenumber);
+      editNote(noteNumber);
     });
     const title = document.createElement("div");
     title.classList.add("notedivtitle");
@@ -186,13 +227,12 @@ const populateBoard = () => {
     trashIcon.classList.add("fa-trash");
     trashIconDiv.appendChild(trashIcon);
     priority.appendChild(trashIconDiv);
-    const trashCanNodes = document.querySelectorAll("trashicondiv");
-    trashCanNodes.forEach((trash, index) => {
-      //! it's not listening
-      trash.addEventListener("click", () => {
-        console.log("TRASH CAN!");
-      });
+    trashIconDiv.addEventListener("click", (e) => {
+      e.stopImmediatePropagation();
+      console.log("TRASH CAN!", noteNumber);
+      deleteNote(noteNumber);
     });
+    // });
     noteIdentifierCount++;
     renderHome.notesContainer.appendChild(blankNote);
     addToStorage();
@@ -200,18 +240,25 @@ const populateBoard = () => {
   });
 };
 
-const editNote = (notenumber) => {
-  // pass in a note id parameter? Yes!
+const deleteNote = (noteNumber) => {
+  myNoteArray.splice(noteNumber, 1);
+  addToStorage();
+  setTimeout(() => populateBoard(), 200);
+  console.log("bye array index", noteNumber);
+};
 
+const editNote = (noteNumber) => {
   renderNotePopup();
-  // TODO fill in existing values ⬇️ THIS.
-  // note popup box comes up for a specific note. Need to get the data for that note and put it in the data fields.
+  // popupContainer.classList.add("edit");
+  console.log("classlist edit");
+  // TODO fill in existing values ⬇️ THIS. NEXT STEP.
   // Need to save the edit by removing the old object and inserting the new object. May need different event listener?
-  console.log("Editing", myNoteArray[notenumber]);
-  inputTitle.value = myNoteArray[notenumber].title;
-  inputDescrip.value = myNoteArray[notenumber].description; // it's working
-  inputDueDate.value = myNoteArray[notenumber].duedate;
-  selectPriority.value = myNoteArray[notenumber].priority;
+  console.log("Editing", noteNumber);
+  inputTitle.value = myNoteArray[noteNumber].title;
+  inputDescrip.value = myNoteArray[noteNumber].description; // it's working
+  inputDueDate.value = myNoteArray[noteNumber].duedate;
+  selectPriority.value = myNoteArray[noteNumber].priority;
+  //! need to save the edit but not create a new note
 };
 
 const clearBoard = () => {
