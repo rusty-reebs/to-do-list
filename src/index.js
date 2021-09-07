@@ -53,23 +53,11 @@ renderHome.newNoteButton.addEventListener("click", () => {
   console.log("classlist addnew");
 });
 
-//! if popupContainer.classList.contains("edit") then removeEventListener
 noteForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  // if (popupContainer.classList.contains("edit")) {
-  // console.log("trying to submit an edit");
-
-  //TODO write saveEdit function
-  // } else {
   saveNote();
   console.log("saved!");
 });
-
-// if (popupContainer.classList.contains("edit")) {
-//   noteForm.removeEventListener("submit", () => {
-//     console.log("submit new note event listener removed");
-//   });
-// }
 
 // TODO fine tune event listeners. When editing, note clicks change the edit popup.
 
@@ -129,13 +117,6 @@ renderHome.homeContainer.addEventListener(
 // }
 // });
 
-const saveEdit = () => {
-  const noteTitle = document.getElementById("notetitle");
-  const noteDescription = document.getElementById("notedescription");
-  const noteDueDate = document.getElementById("duedate");
-  const notePriority = document.getElementById("priority");
-};
-
 // let noteIdentifierCount = 1;
 
 const saveNote = () => {
@@ -169,14 +150,14 @@ const closeNotePopup = () => {
   renderHome.notesContainer.style.opacity = "1.0"; // brightens background
   noteForm.reset();
   popupContainer.remove();
-  console.log("closeNotePopup");
+  console.log("I'm closing!");
 };
 
 // for each item in the array, build a note
 // populate note divs with object values
 
 const populateBoard = () => {
-  //! can some of this DOM stuff be written as a function in a module? Import buildNote and invoke here
+  //! can some of this DOM stuff be written as a function in a module?
   clearBoard();
   let noteIdentifierCount = 0;
   myNoteArray.forEach((note, index) => {
@@ -189,7 +170,6 @@ const populateBoard = () => {
     let noteNumber = index;
     blankNote.addEventListener("click", () => {
       popupContainer.classList.add("edit");
-      console.log(popupContainer.classList);
       // let noteNumber = index;
       // let notenumber = blankNote.getAttribute("data-note-identifier"); //? maybe don't need data-note-idenitifer
       // console.log(blankNote.getAttribute("data-note-identifier"));
@@ -269,6 +249,7 @@ const deleteNote = (noteNumber) => {
 
 const editNote = (noteNumber) => {
   renderNotePopup();
+  // popupContainer.classList.add("edit");
   console.log("classlist edit");
   // TODO fill in existing values ⬇️ THIS. NEXT STEP.
   // Need to save the edit by removing the old object and inserting the new object. May need different event listener?
@@ -278,21 +259,6 @@ const editNote = (noteNumber) => {
   inputDueDate.value = myNoteArray[noteNumber].duedate;
   selectPriority.value = myNoteArray[noteNumber].priority;
   //! need to save the edit but not create a new note
-  //! THIS ISN'T WORKING, need to find a way to override the original submit event listener
-  if (
-    popupContainer.classList.contains("edit") &&
-    !popupContainer.classList.contains("addnew")
-  ) {
-    noteForm.addEventListener(
-      "submit",
-      (e) => {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        console.log("trying to save an edit");
-      },
-      true
-    );
-  }
 };
 
 const clearBoard = () => {
