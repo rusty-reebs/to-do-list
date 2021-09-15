@@ -49,17 +49,31 @@ let myNoteArray = [
 renderHome.newNoteButton.addEventListener("click", () => {
   console.log("new note!");
   renderNotePopup();
+  popupContainer.classList.remove("edit");
   popupContainer.classList.add("addnew");
-  console.log("classlist addnew");
+  console.log(popupContainer.classList);
 });
 
 noteForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  saveNote();
-  console.log("saved!");
+  if (!popupContainer.classList.contains("edit")) {
+    saveNote();
+    console.log("saved!");
+  } else {
+    console.log("you want to edit?");
+    saveNote(activeNoteIndex);
+    console.log(myNoteArray);
+  }
 });
 
 // TODO fine tune event listeners. When editing, note clicks change the edit popup.
+
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
 
 renderHome.homeContainer.addEventListener(
   "click",
@@ -117,24 +131,23 @@ renderHome.homeContainer.addEventListener(
 // }
 // });
 
-// let noteIdentifierCount = 1;
-
-const saveNote = () => {
+const saveNote = (noteNumber) => {
   const noteTitle = document.getElementById("notetitle");
   const noteDescription = document.getElementById("notedescription");
   const noteDueDate = document.getElementById("duedate");
   const notePriority = document.getElementById("priority");
-  // noteTitle.setAttribute("data-note-identifier", noteIdentifierCount);
   console.log(noteTitle.value);
-  // console.log(noteTitle.getAttribute("data-note-identifier"));
   const todoNote = new Note(
     noteTitle.value,
     noteDescription.value,
     noteDueDate.value,
     notePriority.value
   );
-  myNoteArray.push(todoNote);
-  // noteIdentifierCount++;
+  if (popupContainer.classList.contains("edit")) {
+    myNoteArray.splice(noteNumber, 1, todoNote);
+    populateBoard();
+    setTimeout(() => closeNotePopup(), 300);
+  } else myNoteArray.push(todoNote);
   //? need to set a unique identifier for a note? To be used for editing? Data-id
   populateBoard();
   setTimeout(() => closeNotePopup(), 300);
@@ -142,12 +155,12 @@ const saveNote = () => {
 
 const renderNotePopup = () => {
   buildNotePopup();
-  renderHome.notesContainer.style.opacity = "0.3"; // fades background, move to index?
-  renderHome.main.insertBefore(popupContainer, renderHome.main.childNodes[1]); // move to index?
+  renderHome.notesContainer.style.opacity = "0.3";
+  renderHome.main.insertBefore(popupContainer, renderHome.main.childNodes[1]);
 };
 
 const closeNotePopup = () => {
-  renderHome.notesContainer.style.opacity = "1.0"; // brightens background
+  renderHome.notesContainer.style.opacity = "1.0";
   noteForm.reset();
   popupContainer.remove();
   console.log("I'm closing!");
@@ -156,8 +169,10 @@ const closeNotePopup = () => {
 // for each item in the array, build a note
 // populate note divs with object values
 
+let activeNoteIndex;
+
 const populateBoard = () => {
-  //! can some of this DOM stuff be written as a function in a module?
+  //! can some of this DOM stuff be written as a function in a module? Started this in note.js
   clearBoard();
   let noteIdentifierCount = 0;
   myNoteArray.forEach((note, index) => {
@@ -167,15 +182,16 @@ const populateBoard = () => {
     // console.log(blankNote.getAttribute("data-note-identifier"));
     // console.log(index);
     blankNote.classList.add("note");
-    let noteNumber = index;
     blankNote.addEventListener("click", () => {
       popupContainer.classList.add("edit");
       // let noteNumber = index;
       // let notenumber = blankNote.getAttribute("data-note-identifier"); //? maybe don't need data-note-idenitifer
       // console.log(blankNote.getAttribute("data-note-identifier"));
-      console.log("Array position", noteNumber);
+      console.log("Array position", index);
       console.log("You clicked a blankNote");
-      editNote(noteNumber);
+      editNote(index);
+      activeNoteIndex = index;
+      console.log("active note index", activeNoteIndex);
     });
     const title = document.createElement("div");
     title.classList.add("notedivtitle");
@@ -229,10 +245,9 @@ const populateBoard = () => {
     priority.appendChild(trashIconDiv);
     trashIconDiv.addEventListener("click", (e) => {
       e.stopImmediatePropagation();
-      console.log("TRASH CAN!", noteNumber);
-      deleteNote(noteNumber);
+      console.log("TRASH CAN!", index);
+      deleteNote(index);
     });
-    // });
     noteIdentifierCount++;
     renderHome.notesContainer.appendChild(blankNote);
     addToStorage();
@@ -240,25 +255,22 @@ const populateBoard = () => {
   });
 };
 
-const deleteNote = (noteNumber) => {
-  myNoteArray.splice(noteNumber, 1);
+const deleteNote = (index) => {
+  myNoteArray.splice(index, 1);
   addToStorage();
   setTimeout(() => populateBoard(), 200);
-  console.log("bye array index", noteNumber);
+  console.log("bye array index", index);
 };
 
-const editNote = (noteNumber) => {
+const editNote = (index) => {
   renderNotePopup();
-  // popupContainer.classList.add("edit");
-  console.log("classlist edit");
-  // TODO fill in existing values ⬇️ THIS. NEXT STEP.
-  // Need to save the edit by removing the old object and inserting the new object. May need different event listener?
-  console.log("Editing", noteNumber);
-  inputTitle.value = myNoteArray[noteNumber].title;
-  inputDescrip.value = myNoteArray[noteNumber].description; // it's working
-  inputDueDate.value = myNoteArray[noteNumber].duedate;
-  selectPriority.value = myNoteArray[noteNumber].priority;
-  //! need to save the edit but not create a new note
+  popupContainer.classList.add("edit");
+  console.log(popupContainer.classList);
+  console.log("Editing", index);
+  inputTitle.value = myNoteArray[index].title;
+  inputDescrip.value = myNoteArray[index].description; // it's working
+  inputDueDate.value = myNoteArray[index].duedate;
+  selectPriority.value = myNoteArray[index].priority;
 };
 
 const clearBoard = () => {
