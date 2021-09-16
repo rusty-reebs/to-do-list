@@ -12,9 +12,12 @@ import {
   inputDueDate,
   selectPriority,
 } from "./components/notepopup";
+import { projectInputForm } from "./components/projects";
+import { showProjectInput } from "./components/projects";
 
 class Note {
   constructor(title, description, duedate, priority) {
+    //? add project
     this.title = title;
     this.description = description;
     this.duedate = duedate;
@@ -46,6 +49,11 @@ let myNoteArray = [
   },
 ];
 
+renderHome.newProjectButton.addEventListener("click", () => {
+  console.log("new project!");
+  renderProjectInput();
+});
+
 renderHome.newNoteButton.addEventListener("click", () => {
   console.log("new note!");
   renderNotePopup();
@@ -67,7 +75,7 @@ noteForm.addEventListener("submit", (e) => {
 });
 
 // TODO fine tune event listeners. When editing, note clicks change the edit popup.
-
+//? The main reason is you can remove listeners from named functions but can't remove them from anonymous functions I think.
 // // When the user clicks anywhere outside of the modal, close it
 // window.onclick = function(event) {
 //   if (event.target == modal) {
@@ -151,6 +159,11 @@ const saveNote = (noteNumber) => {
   //? need to set a unique identifier for a note? To be used for editing? Data-id
   populateBoard();
   setTimeout(() => closeNotePopup(), 300);
+};
+
+const renderProjectInput = () => {
+  showProjectInput();
+  renderHome.projectsDiv.appendChild(projectInputForm);
 };
 
 const renderNotePopup = () => {

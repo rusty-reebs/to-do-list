@@ -82,6 +82,40 @@ body {
   border-radius: 50px;
 }
 
+.projectsdiv {
+  grid-row: 4;
+}
+
+.project {
+  color: black;
+  font-size: 20px;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.projectinput {
+  background-color: lightgreen;
+  color: black;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  /* width: 60px; */
+  margin-left: 10px;
+}
+
+.savecancel {
+  font-size: 20px;
+}
+
+.saveproject {
+  color: #4caf50;
+}
+
+.cancelproject {
+  color: #f44336;
+}
+
 .buttoncontainer {
   display: flex;
   grid-row: 1;
@@ -160,7 +194,7 @@ body {
 .note {
   display: grid;
   /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr; ? can these be %? make the duedate and prior smaller */
-  grid-template-rows: 20% 50% 10% 5% 5%; /* ? can these be %? make the duedate and prior smaller */
+  grid-template-rows: 23% 50% 10% 5% 5%; /* ? can these be %? make the duedate and prior smaller */
 
   background-color: lightyellow;
   color: black;
@@ -176,13 +210,20 @@ body {
 }
 
 .notediv {
-  margin: 15px;
+  margin-top: 0;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 0;
 }
 
 .notedivtitle {
-  margin: 15px;
-  font-size: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 18px;
   font-weight: bold;
+  overflow: hidden;
 }
 
 .notedivduedate {
@@ -205,6 +246,7 @@ body {
   color: white;
   background-color: #f44336;
   padding: 1px 5px;
+  border-radius: 8px;
 }
 
 .medium {
@@ -212,6 +254,7 @@ body {
   color: black;
   background-color: #ffc107;
   padding: 1px 5px;
+  border-radius: 8px;
 }
 
 .low {
@@ -219,6 +262,7 @@ body {
   color: black;
   background-color: lightgreen;
   padding: 1px 5px;
+  border-radius: 8px;
 }
 
 .noteform {

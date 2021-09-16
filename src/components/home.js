@@ -31,6 +31,20 @@ const renderHome = (() => {
   newProjectButton.innerHTML = "+";
   projectHeader.appendChild(newProjectButton);
 
+  const projectsDiv = document.createElement("div");
+  projectsDiv.classList.add("projectsdiv");
+  sidebar.appendChild(projectsDiv);
+
+  const exampleProject = document.createElement("div");
+  exampleProject.classList.add("project");
+  exampleProject.innerHTML = "Sample To-Dos";
+  projectsDiv.appendChild(exampleProject);
+
+  const exampleProject2 = document.createElement("div");
+  exampleProject2.classList.add("project");
+  exampleProject2.innerHTML = "Household";
+  projectsDiv.appendChild(exampleProject2);
+
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("buttoncontainer");
   main.appendChild(buttonContainer);
@@ -69,5 +83,12 @@ const renderHome = (() => {
   // exampleNote5.innerHTML = "This is another note";
   // notesContainer.appendChild(exampleNote5);
 
-  return { homeContainer, main, notesContainer, newNoteButton };
+  return {
+    homeContainer,
+    main,
+    notesContainer,
+    newNoteButton,
+    newProjectButton,
+    projectsDiv,
+  };
 })();
