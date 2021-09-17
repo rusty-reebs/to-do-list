@@ -12,7 +12,7 @@ import {
   inputDueDate,
   selectPriority,
 } from "./components/notepopup";
-import { projectInputForm } from "./components/projects";
+import { projectInputForm, saveProjectButton } from "./components/projects";
 import { showProjectInput } from "./components/projects";
 
 class Note {
@@ -24,6 +24,8 @@ class Note {
     this.priority = priority;
   }
 }
+
+let projectsArray = ["Sample To-Dos"];
 
 let myNoteArray = [
   {
@@ -51,7 +53,16 @@ let myNoteArray = [
 
 renderHome.newProjectButton.addEventListener("click", () => {
   console.log("new project!");
+  projectInputForm.classList.toggle("active");
+  console.log(projectInputForm.classList);
   renderProjectInput();
+});
+
+saveProjectButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  console.log("save project!");
+  saveProject();
+  console.log(projectsArray);
 });
 
 renderHome.newNoteButton.addEventListener("click", () => {
@@ -102,6 +113,12 @@ renderHome.homeContainer.addEventListener(
       // e.stopImmediatePropagation();
       closeNotePopup();
       popupContainer.classList.remove("edit");
+    } else if (
+      !e.target.closest(".saveprojectbtn") &&
+      !e.target.closest(".projectinput") &&
+      projectInputForm.classList.contains("active")
+    ) {
+      closeProjectInput();
     }
   },
   true
@@ -139,6 +156,14 @@ renderHome.homeContainer.addEventListener(
 // }
 // });
 
+const saveProject = () => {
+  const projectName = document.getElementById("project");
+  projectsArray.push(projectName.value);
+  console.log(projectName.value);
+  // populateProjects(); //TODO write this function and use projectsArray to populate DOM
+  setTimeout(() => closeProjectInput(), 300);
+};
+
 const saveNote = (noteNumber) => {
   const noteTitle = document.getElementById("notetitle");
   const noteDescription = document.getElementById("notedescription");
@@ -166,6 +191,12 @@ const renderProjectInput = () => {
   renderHome.projectsDiv.appendChild(projectInputForm);
 };
 
+const closeProjectInput = () => {
+  projectInputForm.reset();
+  projectInputForm.classList.toggle("active");
+  renderHome.projectsDiv.removeChild(projectInputForm);
+};
+
 const renderNotePopup = () => {
   buildNotePopup();
   renderHome.notesContainer.style.opacity = "0.3";
@@ -178,9 +209,6 @@ const closeNotePopup = () => {
   popupContainer.remove();
   console.log("I'm closing!");
 };
-
-// for each item in the array, build a note
-// populate note divs with object values
 
 let activeNoteIndex;
 
