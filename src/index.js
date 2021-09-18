@@ -160,8 +160,29 @@ const saveProject = () => {
   const projectName = document.getElementById("project");
   projectsArray.push(projectName.value);
   console.log(projectName.value);
-  // populateProjects(); //TODO write this function and use projectsArray to populate DOM
+  populateProjects();
   setTimeout(() => closeProjectInput(), 300);
+};
+
+const populateProjects = () => {
+  clearProjects();
+  projectsArray.forEach((project, index) => {
+    renderProject(project, index);
+  });
+  addToStorage();
+};
+
+const renderProject = (project, index) => {
+  project = document.createElement("div");
+  project.classList.add("project");
+  project.innerHTML = projectsArray[index];
+  renderHome.projectsDiv.appendChild(project);
+};
+
+const clearProjects = () => {
+  while (renderHome.projectsDiv.hasChildNodes()) {
+    renderHome.projectsDiv.removeChild(renderHome.projectsDiv.firstChild);
+  }
 };
 
 const saveNote = (noteNumber) => {
@@ -194,7 +215,8 @@ const renderProjectInput = () => {
 const closeProjectInput = () => {
   projectInputForm.reset();
   projectInputForm.classList.toggle("active");
-  renderHome.projectsDiv.removeChild(projectInputForm);
+  renderHome.projectsDiv.removeChild(projectInputForm); // need to remove the form for the cancel event listener to work
+  //! throws an error, says the node doesn't exist. It's being cleared somewhere else?
 };
 
 const renderNotePopup = () => {
@@ -322,17 +344,20 @@ const clearBoard = () => {
 
 const addToStorage = () => {
   localStorage.setItem("notes", JSON.stringify(myNoteArray));
+  localStorage.setItem("projects", JSON.stringify(projectsArray));
 };
 
 const getFromStorage = () => {
   myNoteArray = JSON.parse(localStorage.getItem("notes"));
+  projectsArray = JSON.parse(localStorage.getItem("projects"));
 };
 
 // If local storage does not exist, create it, otherwise get notes from local storage
-if (!localStorage.getItem("notes")) {
+if (!localStorage.getItem("notes") || !localStorage.getItem("projects")) {
   addToStorage();
 } else {
   getFromStorage();
 }
 
+populateProjects();
 populateBoard();

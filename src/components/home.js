@@ -35,15 +35,15 @@ const renderHome = (() => {
   projectsDiv.classList.add("projectsdiv");
   sidebar.appendChild(projectsDiv);
 
-  const exampleProject = document.createElement("div");
-  exampleProject.classList.add("project");
-  exampleProject.innerHTML = "Sample To-Dos";
-  projectsDiv.appendChild(exampleProject);
+  // const exampleProject = document.createElement("div");
+  // exampleProject.classList.add("project");
+  // exampleProject.innerHTML = "Sample To-Dos";
+  // projectsDiv.appendChild(exampleProject);
 
-  const exampleProject2 = document.createElement("div");
-  exampleProject2.classList.add("project");
-  exampleProject2.innerHTML = "Household";
-  projectsDiv.appendChild(exampleProject2);
+  // const exampleProject2 = document.createElement("div");
+  // exampleProject2.classList.add("project");
+  // exampleProject2.innerHTML = "Household";
+  // projectsDiv.appendChild(exampleProject2);
 
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("buttoncontainer");
