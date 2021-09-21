@@ -215,8 +215,7 @@ const renderProjectInput = () => {
 const closeProjectInput = () => {
   projectInputForm.reset();
   projectInputForm.classList.toggle("active");
-  renderHome.projectsDiv.removeChild(projectInputForm); // need to remove the form for the cancel event listener to work
-  //! throws an error, says the node doesn't exist. It's being cleared somewhere else?
+  projectInputForm.remove();
 };
 
 const renderNotePopup = () => {
