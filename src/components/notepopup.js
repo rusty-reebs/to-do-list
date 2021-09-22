@@ -28,6 +28,22 @@ inputDescrip.classList.add("description");
 inputDescrip.name = "description";
 inputDescrip.id = "notedescription";
 inputDescrip.placeholder = "Take a note...";
+const labelProject = document.createElement("label");
+labelProject.classList.add("projectselect");
+labelProject.for = "project";
+labelProject.innerHTML = "Project:";
+const selectProject = document.createElement("select");
+selectProject.classList.add("selectproject");
+selectProject.name = "project";
+selectProject.id = "project";
+// need to iterate array as options
+const option = document.createElement("option");
+const option2 = document.createElement("option");
+option.innerHTML = "Gardening";
+option.value = "Gardening";
+option2.innerHTML = "Home";
+option2.value = "Home";
+
 const labelDueDate = document.createElement("label");
 labelDueDate.classList.add("duedate");
 labelDueDate.for = "duedate";
@@ -42,6 +58,7 @@ labelPriority.classList.add("prioritylabel");
 labelPriority.for = "priority";
 labelPriority.innerHTML = "Priority:";
 const selectPriority = document.createElement("select");
+selectPriority.classList.add("selectpriority");
 selectPriority.name = "priority";
 selectPriority.id = "priority";
 const highPri = document.createElement("option");
@@ -68,7 +85,12 @@ const buildNotePopup = () => {
 
   noteForm.appendChild(inputTitle);
   noteForm.appendChild(inputDescrip);
-  noteForm.appendChild(div);
+  // noteForm.appendChild(div);
+  noteForm.appendChild(labelProject);
+  noteForm.appendChild(selectProject);
+  selectProject.appendChild(option);
+  selectProject.appendChild(option2);
+
   noteForm.appendChild(labelDueDate);
   noteForm.appendChild(inputDueDate);
   noteForm.appendChild(labelPriority);
@@ -80,42 +102,3 @@ const buildNotePopup = () => {
 
   noteForm.appendChild(noteSubmitButton);
 };
-
-// Possible radio buttons for priority inputs
-
-// const labelPriorityHigh = document.createElement("label");
-// labelPriorityHigh.for = "priorityhigh";
-// labelPriorityHigh.innerHTML = "High";
-
-// const labelPriorityMed = document.createElement("label");
-// labelPriorityMed.for = "prioritymed";
-// labelPriorityMed.innerHTML = "Medium";
-
-// const labelPriorityLow = document.createElement("label");
-// labelPriorityLow.for = "prioritylow";
-// labelPriorityLow.innerHTML = "Low";
-
-// const inputPriorityHigh = document.createElement("input");
-// inputPriorityHigh.type = "radio";
-// inputPriorityHigh.name = "priority";
-// inputPriorityHigh.id = "priorityhigh";
-// inputPriorityHigh.value = "High";
-
-// const inputPriorityMed = document.createElement("input");
-// inputPriorityMed.type = "radio";
-// inputPriorityMed.name = "priority";
-// inputPriorityMed.id = "prioritymed";
-// inputPriorityMed.value = "Medium";
-
-// const inputPriorityLow = document.createElement("input");
-// inputPriorityLow.type = "radio";
-// inputPriorityLow.name = "priority";
-// inputPriorityLow.id = "prioritylow";
-// inputPriorityLow.value = "Low";
-
-// noteForm.appendChild(inputPriorityHigh);
-// noteForm.appendChild(labelPriorityHigh);
-// noteForm.appendChild(inputPriorityMed);
-// noteForm.appendChild(labelPriorityMed);
-// noteForm.appendChild(inputPriorityLow);
-// noteForm.appendChild(labelPriorityLow);
