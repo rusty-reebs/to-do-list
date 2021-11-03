@@ -36,13 +36,13 @@ const selectProject = document.createElement("select");
 selectProject.classList.add("selectproject");
 selectProject.name = "project";
 selectProject.id = "project";
-// need to iterate array as options
-const option = document.createElement("option");
-const option2 = document.createElement("option");
-option.innerHTML = "Gardening";
-option.value = "Gardening";
-option2.innerHTML = "Home";
-option2.value = "Home";
+// need to iterate array as options, but in index.js
+// const option = document.createElement("option");
+// const option2 = document.createElement("option");
+// option.innerHTML = "Gardening";
+// option.value = "Gardening";
+// option2.innerHTML = "Home";
+// option2.value = "Home";
 
 const labelDueDate = document.createElement("label");
 labelDueDate.classList.add("duedate");
@@ -78,6 +78,19 @@ noteSubmitButton.id = "submitnote";
 noteSubmitButton.innerHTML = "Save";
 const div = document.createElement("div");
 
+const clearProjectOptions = () => {
+  while (selectProject.hasChildNodes()) {
+    selectProject.removeChild(selectProject.firstChild);
+  }
+};
+
+const renderProjectOptions = (project) => {
+  const option = document.createElement("option");
+  option.innerHTML = project;
+  option.value = project;
+  selectProject.appendChild(option);
+};
+
 const buildNotePopup = () => {
   // popupContainer.classList.toggle("show");
   popupContainer.appendChild(popupBox);
@@ -88,8 +101,8 @@ const buildNotePopup = () => {
   // noteForm.appendChild(div);
   noteForm.appendChild(labelProject);
   noteForm.appendChild(selectProject);
-  selectProject.appendChild(option);
-  selectProject.appendChild(option2);
+  // selectProject.appendChild(option);
+  // selectProject.appendChild(option2);
 
   noteForm.appendChild(labelDueDate);
   noteForm.appendChild(inputDueDate);
@@ -102,3 +115,5 @@ const buildNotePopup = () => {
 
   noteForm.appendChild(noteSubmitButton);
 };
+
+export { clearProjectOptions, renderProjectOptions };

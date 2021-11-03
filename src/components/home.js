@@ -67,3 +67,11 @@ const renderHome = (() => {
     projectsDiv,
   };
 })();
+
+const clearProjects = () => {
+  while (renderHome.projectsDiv.hasChildNodes()) {
+    renderHome.projectsDiv.removeChild(renderHome.projectsDiv.firstChild);
+  }
+};
+
+export { clearProjects };

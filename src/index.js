@@ -3,7 +3,12 @@
 //! Separate DOM stuff from application logic, keep in separate modules
 
 import { renderHome } from "./components/home";
-import { buildNotePopup } from "./components/notepopup";
+import { clearProjects } from "./components/home";
+import {
+  buildNotePopup,
+  clearProjectOptions,
+  renderProjectOptions,
+} from "./components/notepopup";
 import {
   popupContainer,
   noteForm,
@@ -16,10 +21,11 @@ import { projectInputForm, saveProjectButton } from "./components/projects";
 import { showProjectInput } from "./components/projects";
 
 class Note {
-  constructor(title, description, duedate, priority) {
+  constructor(title, description, project, duedate, priority) {
     //? add project
     this.title = title;
     this.description = description;
+    this.project = project;
     this.duedate = duedate;
     this.priority = priority;
   }
@@ -31,7 +37,8 @@ let myNoteArray = [
   {
     title: "1st note",
     description:
-      "Hi, I'm the first note in the array. You can click on me to edit. 📝",
+      "Hi, I'm the first note in the array. You can click on me to edit. Add your projects by clicking the '+' on the left.",
+    project: projectsArray[0],
     duedate: "2021/09/01", //! not showing in edit
     priority: "High",
   },
@@ -39,6 +46,7 @@ let myNoteArray = [
     title: "2nd note",
     description:
       "Greetings, I am the second note. You can click on the trash can to delete me.",
+    project: projectsArray[0],
     duedate: "2021/09/04",
     priority: "Medium",
   },
@@ -46,6 +54,7 @@ let myNoteArray = [
     title: "3rd note with longer title and text",
     description:
       "Hello, I'm the third note. My priority is low. My title and description are super duper long and show what happens when you exceed the text area. Surprise! You can scroll my content.",
+    project: projectsArray[0],
     duedate: "2021/09/30",
     priority: "Low",
   },
@@ -179,21 +188,24 @@ const renderProject = (project, index) => {
   renderHome.projectsDiv.appendChild(project);
 };
 
-const clearProjects = () => {
-  while (renderHome.projectsDiv.hasChildNodes()) {
-    renderHome.projectsDiv.removeChild(renderHome.projectsDiv.firstChild);
-  }
+const populateProjectOptions = () => {
+  clearProjectOptions();
+  projectsArray.forEach((project) => {
+    renderProjectOptions(project);
+  });
 };
 
 const saveNote = (noteNumber) => {
   const noteTitle = document.getElementById("notetitle");
   const noteDescription = document.getElementById("notedescription");
+  const noteProject = document.getElementById("project");
   const noteDueDate = document.getElementById("duedate");
   const notePriority = document.getElementById("priority");
   console.log(noteTitle.value);
   const todoNote = new Note(
     noteTitle.value,
     noteDescription.value,
+    noteProject.value,
     noteDueDate.value,
     notePriority.value
   );
@@ -234,10 +246,12 @@ const closeNotePopup = () => {
 let activeNoteIndex;
 
 const populateBoard = () => {
+  //! can use array placeholder for different filtered arrays?
   //! can some of this DOM stuff be written as a function in a module? Started this in note.js
   clearBoard();
   let noteIdentifierCount = 0;
   myNoteArray.forEach((note, index) => {
+    //! re placeholder above
     const blankNote = document.createElement("div");
     //? set data-id here?
     blankNote.setAttribute("data-note-identifier", noteIdentifierCount);
@@ -265,16 +279,22 @@ const populateBoard = () => {
     description.classList.add("scroll");
     description.textContent = note.description;
     blankNote.appendChild(description);
+    const project = document.createElement("div");
+    project.textContent = note.project;
+    project.classList.add("notedivproject");
+    blankNote.appendChild(project);
+
     const duedate = document.createElement("div");
     duedate.classList.add("notedivduedate");
+    duedate.textContent = note.duedate;
     // duedate.textContent = "Due Date: " + note.duedate;
     blankNote.appendChild(duedate);
-    const duedateLabel = document.createElement("div");
-    duedateLabel.textContent = "Due Date:";
-    const duedateDate = document.createElement("div");
-    duedateDate.textContent = note.duedate;
+    // const duedateLabel = document.createElement("div");
+    // duedateLabel.textContent = "Due Date:";
+    // const duedateDate = document.createElement("div");
+    // duedateDate.textContent = note.duedate;
     // duedate.appendChild(duedateLabel);
-    duedate.appendChild(duedateDate);
+    // duedate.appendChild(duedateDate);
     const priority = document.createElement("div");
     priority.classList.add("notedivpriority");
     // priority.textContent = "Priority: " + note.priority;
@@ -331,6 +351,9 @@ const editNote = (index) => {
   console.log("Editing", index);
   inputTitle.value = myNoteArray[index].title;
   inputDescrip.value = myNoteArray[index].description; // it's working
+  //TODO show project options
+  populateProjectOptions();
+  project.value = myNoteArray[index].project;
   inputDueDate.value = myNoteArray[index].duedate;
   selectPriority.value = myNoteArray[index].priority;
 };
