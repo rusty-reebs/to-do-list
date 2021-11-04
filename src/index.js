@@ -36,18 +36,18 @@ let myNoteArray = [
   {
     title: "1st note",
     description:
-      "Hi, I'm the first note in the array. You can click on me to edit. Add your projects by clicking the '+' on the left.",
+      "Hi! This app is best viewed on a desktop! Add your projects by clicking the '+' on the left. You can sort your notes by project, too.",
     project: projectsArray[0],
-    duedate: "2021/09/01", //! not showing in edit
+    duedate: "2021-09-01", //! not showing in edit
     priority: "High",
     id: 0,
   },
   {
     title: "2nd note",
     description:
-      "Greetings, I am the second note. You can click on the trash can to delete me.",
+      "Greetings, I am the second note. You can click on me to edit and you can click on the trash can to delete me.",
     project: projectsArray[0],
-    duedate: "2021/09/04",
+    duedate: "2021-09-04",
     priority: "Medium",
     id: 1,
   },
@@ -56,7 +56,7 @@ let myNoteArray = [
     description:
       "Hello, I'm the third note. My priority is low. My title and description are super duper long and show what happens when you exceed the text area. Surprise! You can scroll my content.",
     project: projectsArray[0],
-    duedate: "2021/09/30",
+    duedate: "2021-09-30",
     priority: "Low",
     id: 2,
   },
@@ -65,7 +65,7 @@ let myNoteArray = [
     description:
       "By the way, this project was coded in plain JavaScript and CSS.",
     project: projectsArray[0],
-    duedate: "2021/10/31",
+    duedate: "2021-10-31",
     priority: "Medium",
     id: 3,
   },
@@ -283,12 +283,14 @@ const populateBoard = (noteArray) => {
     blankNote.appendChild(description);
     const project = document.createElement("div");
     project.textContent = note.project;
+    project.title = "Project";
     project.classList.add("notedivproject");
     blankNote.appendChild(project);
 
     const duedate = document.createElement("div");
     duedate.classList.add("notedivduedate");
     duedate.textContent = note.duedate;
+    duedate.title = "Due Date";
     blankNote.appendChild(duedate);
     const priority = document.createElement("div");
     priority.classList.add("notedivpriority");
@@ -298,6 +300,7 @@ const populateBoard = (noteArray) => {
     priorityLabel.textContent = "Priority:";
     const priorityValue = document.createElement("div");
     priorityValue.textContent = note.priority;
+    priorityValue.title = "Priority";
     switch (note.priority) {
       case "High":
         priorityValue.classList.add("high");
@@ -340,7 +343,10 @@ const deleteNote = (id) => {
     .indexOf(id);
   myNoteArray.splice(noteIndex, 1);
   addToStorage();
-  setTimeout(() => populateBoard(myNoteArray), 200);
+  setTimeout(() => {
+    populateProjects();
+    populateBoard(myNoteArray);
+  }, 200);
   console.log("bye array index", noteIndex);
   console.log("bye bye note id", id);
 };
@@ -367,6 +373,7 @@ const editNote = (id) => {
   inputDescrip.value = myNoteArray[noteIndex].description; // it's working
   project.value = myNoteArray[noteIndex].project;
   inputDueDate.value = myNoteArray[noteIndex].duedate;
+  console.log(myNoteArray[noteIndex].duedate);
   selectPriority.value = myNoteArray[noteIndex].priority;
 };
 
@@ -377,8 +384,10 @@ const clearBoard = () => {
 };
 
 renderHome.appTitle.addEventListener("click", () => {
-  populateProjects();
-  populateBoard(myNoteArray);
+  setTimeout(() => {
+    populateProjects();
+    populateBoard(myNoteArray);
+  }, 300);
 });
 
 const addToStorage = () => {
