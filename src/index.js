@@ -22,7 +22,6 @@ import { showProjectInput } from "./components/projects";
 
 class Note {
   constructor(title, description, project, duedate, priority) {
-    //? add project
     this.title = title;
     this.description = description;
     this.project = project;
@@ -41,6 +40,7 @@ let myNoteArray = [
     project: projectsArray[0],
     duedate: "2021/09/01", //! not showing in edit
     priority: "High",
+    id: 0,
   },
   {
     title: "2nd note",
@@ -49,6 +49,7 @@ let myNoteArray = [
     project: projectsArray[0],
     duedate: "2021/09/04",
     priority: "Medium",
+    id: 1,
   },
   {
     title: "3rd note with longer title and text",
@@ -57,8 +58,24 @@ let myNoteArray = [
     project: projectsArray[0],
     duedate: "2021/09/30",
     priority: "Low",
+    id: 2,
+  },
+  {
+    title: "4th note",
+    description:
+      "By the way, this project was coded in plain JavaScript and CSS.",
+    project: projectsArray[0],
+    duedate: "2021/10/31",
+    priority: "Medium",
+    id: 3,
   },
 ];
+let test = myNoteArray
+  .map((note) => {
+    return note.title;
+  })
+  .indexOf("4th note");
+console.log(test);
 
 renderHome.newProjectButton.addEventListener("click", () => {
   console.log("new project!");
@@ -123,38 +140,6 @@ renderHome.homeContainer.addEventListener(
   },
   true
 );
-//     e.target !== renderHome.newNoteButton &&
-//     popupContainer.classList.contains("show")
-//   ) {
-//     console.log("You clicked off the popup box");
-//     popupContainer.classList.remove("show");
-//     closeNotePopup();
-//   }
-// else if (!popupContainer.classList.contains("show") && e.target == blankNote) {
-
-// }
-// });
-// if (e.target !== btn) btn.classList.remove("active"); EXAMPLE
-
-// window.addEventListener("click", ({ target }) => {
-//   if (
-//     !target.closest(".popupcontainer") &&
-//     !target.closest(".newnotebutton") &&
-//     popupContainer.classList.contains("show")
-//   ) {
-//     console.log("clicked off the box");
-//     popupContainer.classList.toggle("show");
-//     closeNotePopup();
-//   }
-// } else if (
-//   !popupContainer.classList.contains("show") &&
-//   target.closest(".note")
-// ) {
-//   console.log("you clicked a note");
-//   console.log(target.closest(".note"));
-//   editNote(); //? pass in some useful note id
-// }
-// });
 
 const saveProject = () => {
   const projectName = document.getElementById("project");
@@ -172,11 +157,28 @@ const populateProjects = () => {
   addToStorage();
 };
 
+// let sortedNoteArray = [];
+let projectDivArray = [];
 const renderProject = (project, index) => {
   project = document.createElement("div");
   project.classList.add("project");
   project.innerHTML = projectsArray[index];
   renderHome.projectsDiv.appendChild(project);
+  projectDivArray.push(project);
+  console.log(projectDivArray);
+  project.addEventListener("click", () => {
+    console.log("you clicked project index", index);
+    projectDivArray.forEach((project) => {
+      project.classList.remove("activeproject");
+    });
+    project.classList.add("activeproject");
+    // create new note array with project
+    const sortedNoteArray = myNoteArray.filter((note) => {
+      if (note.project === projectsArray[index]) return note;
+    });
+    console.log(sortedNoteArray);
+    populateBoard(sortedNoteArray);
+  });
 };
 
 const populateProjectOptions = () => {
@@ -186,6 +188,7 @@ const populateProjectOptions = () => {
   });
 };
 
+let noteId = 4;
 const saveNote = (noteNumber) => {
   const noteTitle = document.getElementById("notetitle");
   const noteDescription = document.getElementById("notedescription");
@@ -202,11 +205,16 @@ const saveNote = (noteNumber) => {
   );
   if (popupContainer.classList.contains("edit")) {
     myNoteArray.splice(noteNumber, 1, todoNote);
-    populateBoard();
+    populateBoard(myNoteArray);
     setTimeout(() => closeNotePopup(), 300);
-  } else myNoteArray.push(todoNote);
+  } else {
+    todoNote.id = noteId;
+    myNoteArray.push(todoNote);
+    console.log(myNoteArray);
+    noteId++;
+  }
   //? need to set a unique identifier for a note? To be used for editing? Data-id
-  populateBoard();
+  populateBoard(myNoteArray); //! which array to show
   setTimeout(() => closeNotePopup(), 300);
 };
 
@@ -235,14 +243,16 @@ const closeNotePopup = () => {
   console.log("I'm closing!");
 };
 
+// event listener for each project
+// sort myNoteArray, look for project, create sortedNoteArray
 let activeNoteIndex;
 
-const populateBoard = () => {
+const populateBoard = (noteArray) => {
   //! can use array placeholder for different filtered arrays?
   //! can some of this DOM stuff be written as a function in a module? Started this in note.js
   clearBoard();
   let noteIdentifierCount = 0;
-  myNoteArray.forEach((note, index) => {
+  noteArray.forEach((note, index) => {
     //! re placeholder above
     const blankNote = document.createElement("div");
     //? set data-id here?
@@ -257,7 +267,7 @@ const populateBoard = () => {
       // console.log(blankNote.getAttribute("data-note-identifier"));
       console.log("Array position", index);
       console.log("You clicked a blankNote");
-      editNote(index);
+      editNote(note.id);
       activeNoteIndex = index;
       console.log("active note index", activeNoteIndex);
     });
@@ -312,7 +322,8 @@ const populateBoard = () => {
     trashIconDiv.addEventListener("click", (e) => {
       e.stopImmediatePropagation();
       console.log("TRASH CAN!", index);
-      deleteNote(index);
+      // deleteNote(index);
+      deleteNote(note.id);
     });
     noteIdentifierCount++;
     renderHome.notesContainer.appendChild(blankNote);
@@ -321,25 +332,42 @@ const populateBoard = () => {
   });
 };
 
-const deleteNote = (index) => {
-  myNoteArray.splice(index, 1);
+const deleteNote = (id) => {
+  let noteIndex = myNoteArray
+    .map((note) => {
+      return note.id;
+    })
+    .indexOf(id);
+  myNoteArray.splice(noteIndex, 1);
   addToStorage();
-  setTimeout(() => populateBoard(), 200);
-  console.log("bye array index", index);
+  setTimeout(() => populateBoard(myNoteArray), 200);
+  console.log("bye array index", noteIndex);
+  console.log("bye bye note id", id);
 };
 
-const editNote = (index) => {
+// const deleteNote = (index) => {
+//   myNoteArray.splice(index, 1);
+//   addToStorage();
+//   setTimeout(() => populateBoard(myNoteArray), 200);
+//   console.log("bye array index", index);
+// };
+
+const editNote = (id) => {
+  let noteIndex = myNoteArray
+    .map((note) => {
+      return note.id;
+    })
+    .indexOf(id);
   renderNotePopup();
   popupContainer.classList.add("edit");
   console.log(popupContainer.classList);
-  console.log("Editing", index);
-  inputTitle.value = myNoteArray[index].title;
-  inputDescrip.value = myNoteArray[index].description; // it's working
-  //TODO show project options
-  // populateProjectOptions();
-  // project.value = myNoteArray[index].project;
-  // inputDueDate.value = myNoteArray[index].duedate;
-  // selectPriority.value = myNoteArray[index].priority;
+  console.log("Editing index", noteIndex);
+  console.log("Editing id", id);
+  inputTitle.value = myNoteArray[noteIndex].title;
+  inputDescrip.value = myNoteArray[noteIndex].description; // it's working
+  project.value = myNoteArray[noteIndex].project;
+  inputDueDate.value = myNoteArray[noteIndex].duedate;
+  selectPriority.value = myNoteArray[noteIndex].priority;
 };
 
 const clearBoard = () => {
@@ -347,6 +375,11 @@ const clearBoard = () => {
     renderHome.notesContainer.removeChild(renderHome.notesContainer.firstChild);
   }
 };
+
+renderHome.appTitle.addEventListener("click", () => {
+  populateProjects();
+  populateBoard(myNoteArray);
+});
 
 const addToStorage = () => {
   localStorage.setItem("notes", JSON.stringify(myNoteArray));
@@ -366,4 +399,4 @@ if (!localStorage.getItem("notes") || !localStorage.getItem("projects")) {
 }
 
 populateProjects();
-populateBoard();
+populateBoard(myNoteArray);

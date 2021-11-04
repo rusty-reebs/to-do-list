@@ -59,6 +59,7 @@ const renderHome = (() => {
   main.appendChild(notesContainer);
 
   return {
+    appTitle,
     homeContainer,
     main,
     notesContainer,
