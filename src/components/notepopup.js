@@ -36,13 +36,7 @@ const selectProject = document.createElement("select");
 selectProject.classList.add("selectproject");
 selectProject.name = "project";
 selectProject.id = "project";
-// need to iterate array as options, but in index.js
-// const option = document.createElement("option");
-// const option2 = document.createElement("option");
-// option.innerHTML = "Gardening";
-// option.value = "Gardening";
-// option2.innerHTML = "Home";
-// option2.value = "Home";
+//TODO needs to show projects to choose from
 
 const labelDueDate = document.createElement("label");
 labelDueDate.classList.add("duedate");

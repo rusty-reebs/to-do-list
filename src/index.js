@@ -94,15 +94,6 @@ noteForm.addEventListener("submit", (e) => {
   }
 });
 
-// TODO fine tune event listeners. When editing, note clicks change the edit popup.
-//? The main reason is you can remove listeners from named functions but can't remove them from anonymous functions I think.
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
-
 renderHome.homeContainer.addEventListener(
   "click",
   (e) => {
@@ -234,6 +225,7 @@ const renderNotePopup = () => {
   buildNotePopup();
   renderHome.notesContainer.style.opacity = "0.3";
   renderHome.main.insertBefore(popupContainer, renderHome.main.childNodes[1]);
+  populateProjectOptions();
 };
 
 const closeNotePopup = () => {
@@ -287,14 +279,7 @@ const populateBoard = () => {
     const duedate = document.createElement("div");
     duedate.classList.add("notedivduedate");
     duedate.textContent = note.duedate;
-    // duedate.textContent = "Due Date: " + note.duedate;
     blankNote.appendChild(duedate);
-    // const duedateLabel = document.createElement("div");
-    // duedateLabel.textContent = "Due Date:";
-    // const duedateDate = document.createElement("div");
-    // duedateDate.textContent = note.duedate;
-    // duedate.appendChild(duedateLabel);
-    // duedate.appendChild(duedateDate);
     const priority = document.createElement("div");
     priority.classList.add("notedivpriority");
     // priority.textContent = "Priority: " + note.priority;
@@ -316,7 +301,6 @@ const populateBoard = () => {
       default:
         console.log("no priority selected");
     }
-    // priority.appendChild(priorityLabel);
     priority.appendChild(priorityValue);
     const trashIconDiv = document.createElement("div");
     trashIconDiv.classList.add("trashicondiv");
@@ -352,10 +336,10 @@ const editNote = (index) => {
   inputTitle.value = myNoteArray[index].title;
   inputDescrip.value = myNoteArray[index].description; // it's working
   //TODO show project options
-  populateProjectOptions();
-  project.value = myNoteArray[index].project;
-  inputDueDate.value = myNoteArray[index].duedate;
-  selectPriority.value = myNoteArray[index].priority;
+  // populateProjectOptions();
+  // project.value = myNoteArray[index].project;
+  // inputDueDate.value = myNoteArray[index].duedate;
+  // selectPriority.value = myNoteArray[index].priority;
 };
 
 const clearBoard = () => {
