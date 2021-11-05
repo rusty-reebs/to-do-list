@@ -1,15 +1,11 @@
 // Main JS script to call other functions
 
-//! Separate DOM stuff from application logic, keep in separate modules
+import { renderHome, clearProjects } from "./components/home";
 
-import { renderHome } from "./components/home";
-import { clearProjects } from "./components/home";
 import {
   buildNotePopup,
   clearProjectOptions,
   renderProjectOptions,
-} from "./components/notepopup";
-import {
   popupContainer,
   noteForm,
   inputTitle,
@@ -17,8 +13,12 @@ import {
   inputDueDate,
   selectPriority,
 } from "./components/notepopup";
-import { projectInputForm, saveProjectButton } from "./components/projects";
-import { showProjectInput } from "./components/projects";
+
+import {
+  projectInputForm,
+  saveProjectButton,
+  showProjectInput,
+} from "./components/projects";
 
 class Note {
   constructor(title, description, project, duedate, priority) {
@@ -38,7 +38,7 @@ let myNoteArray = [
     description:
       "Hi! This app is best viewed on a desktop! Add your projects by clicking the '+' on the left. You can sort your notes by project, too.",
     project: projectsArray[0],
-    duedate: "2021-09-01", //! not showing in edit
+    duedate: "2021-09-01",
     priority: "High",
     id: 0,
   },
@@ -70,51 +70,35 @@ let myNoteArray = [
     id: 3,
   },
 ];
-let test = myNoteArray
-  .map((note) => {
-    return note.title;
-  })
-  .indexOf("4th note");
-console.log(test);
 
 renderHome.newProjectButton.addEventListener("click", () => {
-  console.log("new project!");
   projectInputForm.classList.toggle("active");
-  console.log(projectInputForm.classList);
   renderProjectInput();
 });
 
 saveProjectButton.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("save project!");
   saveProject();
-  console.log(projectsArray);
 });
 
 renderHome.newNoteButton.addEventListener("click", () => {
-  console.log("new note!");
-  renderNotePopup();
   popupContainer.classList.remove("edit");
   popupContainer.classList.add("addnew");
-  console.log(popupContainer.classList);
+  renderNotePopup();
 });
 
 noteForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!popupContainer.classList.contains("edit")) {
     saveNote();
-    console.log("saved!");
   } else {
-    console.log("you want to edit?");
     saveNote(activeNoteIndex);
-    console.log(myNoteArray);
   }
 });
 
 renderHome.homeContainer.addEventListener(
   "click",
   (e) => {
-    console.log("you clicked the homeContainer");
     if (
       !e.target.closest(".popupcontainer") &&
       !e.target.closest(".newnotebutton") &&
@@ -127,7 +111,6 @@ renderHome.homeContainer.addEventListener(
       !e.target.closest(".popupcontainer") &&
       !e.target.closest(".newnotebutton")
     ) {
-      // e.stopImmediatePropagation();
       closeNotePopup();
       popupContainer.classList.remove("edit");
     } else if (
@@ -144,7 +127,6 @@ renderHome.homeContainer.addEventListener(
 const saveProject = () => {
   const projectName = document.getElementById("project");
   projectsArray.push(projectName.value);
-  console.log(projectName.value);
   populateProjects();
   setTimeout(() => closeProjectInput(), 300);
 };
@@ -157,7 +139,6 @@ const populateProjects = () => {
   addToStorage();
 };
 
-// let sortedNoteArray = [];
 let projectDivArray = [];
 const renderProject = (project, index) => {
   project = document.createElement("div");
@@ -165,14 +146,11 @@ const renderProject = (project, index) => {
   project.innerHTML = projectsArray[index];
   renderHome.projectsDiv.appendChild(project);
   projectDivArray.push(project);
-  console.log(projectDivArray);
   project.addEventListener("click", () => {
-    console.log("you clicked project index", index);
     projectDivArray.forEach((project) => {
       project.classList.remove("activeproject");
     });
     project.classList.add("activeproject");
-    // create new note array with project
     const sortedNoteArray = myNoteArray.filter((note) => {
       if (note.project === projectsArray[index]) return note;
     });
@@ -195,7 +173,6 @@ const saveNote = (noteNumber) => {
   const noteProject = document.getElementById("project");
   const noteDueDate = document.getElementById("duedate");
   const notePriority = document.getElementById("priority");
-  console.log(noteTitle.value);
   const todoNote = new Note(
     noteTitle.value,
     noteDescription.value,
@@ -204,17 +181,23 @@ const saveNote = (noteNumber) => {
     notePriority.value
   );
   if (popupContainer.classList.contains("edit")) {
-    myNoteArray.splice(noteNumber, 1, todoNote);
+    todoNote.id = noteNumber;
+    let noteIndex = myNoteArray
+      .map((note) => {
+        return note.id;
+      })
+      .indexOf(noteNumber);
+    myNoteArray.splice(noteIndex, 1, todoNote);
+    populateProjects();
     populateBoard(myNoteArray);
     setTimeout(() => closeNotePopup(), 300);
   } else {
     todoNote.id = noteId;
     myNoteArray.push(todoNote);
-    console.log(myNoteArray);
     noteId++;
   }
-  //? need to set a unique identifier for a note? To be used for editing? Data-id
-  populateBoard(myNoteArray); //! which array to show
+  populateProjects();
+  populateBoard(myNoteArray);
   setTimeout(() => closeNotePopup(), 300);
 };
 
@@ -240,37 +223,23 @@ const closeNotePopup = () => {
   renderHome.notesContainer.style.opacity = "1.0";
   noteForm.reset();
   popupContainer.remove();
-  console.log("I'm closing!");
 };
 
-// event listener for each project
-// sort myNoteArray, look for project, create sortedNoteArray
 let activeNoteIndex;
 
 const populateBoard = (noteArray) => {
-  //! can use array placeholder for different filtered arrays?
-  //! can some of this DOM stuff be written as a function in a module? Started this in note.js
+  //! can some of this DOM stuff be written as a function in a module?
   clearBoard();
-  let noteIdentifierCount = 0;
-  noteArray.forEach((note, index) => {
-    //! re placeholder above
+  noteArray.forEach((note) => {
     const blankNote = document.createElement("div");
-    //? set data-id here?
-    blankNote.setAttribute("data-note-identifier", noteIdentifierCount);
-    // console.log(blankNote.getAttribute("data-note-identifier"));
-    // console.log(index);
     blankNote.classList.add("note");
+
     blankNote.addEventListener("click", () => {
       popupContainer.classList.add("edit");
-      // let noteNumber = index;
-      // let notenumber = blankNote.getAttribute("data-note-identifier"); //? maybe don't need data-note-idenitifer
-      // console.log(blankNote.getAttribute("data-note-identifier"));
-      console.log("Array position", index);
-      console.log("You clicked a blankNote");
       editNote(note.id);
-      activeNoteIndex = index;
-      console.log("active note index", activeNoteIndex);
+      activeNoteIndex = note.id;
     });
+
     const title = document.createElement("div");
     title.classList.add("notedivtitle");
     title.classList.add("scroll");
@@ -286,7 +255,6 @@ const populateBoard = (noteArray) => {
     project.title = "Project";
     project.classList.add("notedivproject");
     blankNote.appendChild(project);
-
     const duedate = document.createElement("div");
     duedate.classList.add("notedivduedate");
     duedate.textContent = note.duedate;
@@ -294,10 +262,7 @@ const populateBoard = (noteArray) => {
     blankNote.appendChild(duedate);
     const priority = document.createElement("div");
     priority.classList.add("notedivpriority");
-    // priority.textContent = "Priority: " + note.priority;
     blankNote.appendChild(priority);
-    const priorityLabel = document.createElement("div");
-    priorityLabel.textContent = "Priority:";
     const priorityValue = document.createElement("div");
     priorityValue.textContent = note.priority;
     priorityValue.title = "Priority";
@@ -311,8 +276,6 @@ const populateBoard = (noteArray) => {
       case "Low":
         priorityValue.classList.add("low");
         break;
-      default:
-        console.log("no priority selected");
     }
     priority.appendChild(priorityValue);
     const trashIconDiv = document.createElement("div");
@@ -322,16 +285,14 @@ const populateBoard = (noteArray) => {
     trashIcon.classList.add("fa-trash");
     trashIconDiv.appendChild(trashIcon);
     priority.appendChild(trashIconDiv);
+
     trashIconDiv.addEventListener("click", (e) => {
       e.stopImmediatePropagation();
-      console.log("TRASH CAN!", index);
-      // deleteNote(index);
       deleteNote(note.id);
     });
-    noteIdentifierCount++;
+
     renderHome.notesContainer.appendChild(blankNote);
     addToStorage();
-    //? may still need blankNote.forEach eventlistener to get actual note
   });
 };
 
@@ -347,16 +308,7 @@ const deleteNote = (id) => {
     populateProjects();
     populateBoard(myNoteArray);
   }, 200);
-  console.log("bye array index", noteIndex);
-  console.log("bye bye note id", id);
 };
-
-// const deleteNote = (index) => {
-//   myNoteArray.splice(index, 1);
-//   addToStorage();
-//   setTimeout(() => populateBoard(myNoteArray), 200);
-//   console.log("bye array index", index);
-// };
 
 const editNote = (id) => {
   let noteIndex = myNoteArray
@@ -364,16 +316,12 @@ const editNote = (id) => {
       return note.id;
     })
     .indexOf(id);
-  renderNotePopup();
   popupContainer.classList.add("edit");
-  console.log(popupContainer.classList);
-  console.log("Editing index", noteIndex);
-  console.log("Editing id", id);
+  renderNotePopup();
   inputTitle.value = myNoteArray[noteIndex].title;
-  inputDescrip.value = myNoteArray[noteIndex].description; // it's working
+  inputDescrip.value = myNoteArray[noteIndex].description;
   project.value = myNoteArray[noteIndex].project;
   inputDueDate.value = myNoteArray[noteIndex].duedate;
-  console.log(myNoteArray[noteIndex].duedate);
   selectPriority.value = myNoteArray[noteIndex].priority;
 };
 

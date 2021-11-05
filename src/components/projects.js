@@ -1,7 +1,5 @@
 // projects.js
 
-//TODO append input box at bottom of projects list. Save input to projects array. Add input selection to notepopup with projects in list.
-
 const projectInputForm = document.createElement("form");
 const projectInput = document.createElement("input");
 projectInput.classList.add("projectinput");

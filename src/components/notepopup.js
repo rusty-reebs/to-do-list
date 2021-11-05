@@ -36,8 +36,6 @@ const selectProject = document.createElement("select");
 selectProject.classList.add("selectproject");
 selectProject.name = "project";
 selectProject.id = "project";
-//TODO needs to show projects to choose from
-
 const labelDueDate = document.createElement("label");
 labelDueDate.classList.add("duedate");
 labelDueDate.for = "duedate";
@@ -86,18 +84,13 @@ const renderProjectOptions = (project) => {
 };
 
 const buildNotePopup = () => {
-  // popupContainer.classList.toggle("show");
   popupContainer.appendChild(popupBox);
   popupBox.appendChild(noteForm);
 
   noteForm.appendChild(inputTitle);
   noteForm.appendChild(inputDescrip);
-  // noteForm.appendChild(div);
   noteForm.appendChild(labelProject);
   noteForm.appendChild(selectProject);
-  // selectProject.appendChild(option);
-  // selectProject.appendChild(option2);
-
   noteForm.appendChild(labelDueDate);
   noteForm.appendChild(inputDueDate);
   noteForm.appendChild(labelPriority);
