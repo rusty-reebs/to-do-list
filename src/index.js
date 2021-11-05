@@ -1,5 +1,7 @@
 // Main JS script to call other functions
 
+import "../styles/style.css";
+
 import { renderHome, clearProjects } from "./components/home";
 
 import {
