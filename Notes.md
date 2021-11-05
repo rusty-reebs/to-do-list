@@ -10,9 +10,9 @@
 - ✅ push object to array
 - ✅ display array as a note in CSS
 - ✅ grab notes with event listeners, pop-up input box with everything filled in.
-- create new project function
+- ✅ create new project function
 - if a note is complete, tick a box beside the trash, fade note, and strikeout title?
-- 
+- ✅ click a project, make a new array with that filter and show?
 
 
 What module files?
